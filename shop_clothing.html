@@ -7,28 +7,55 @@
     <link href="https://fonts.cdnfonts.com/css/blowbrush" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="styles2.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <nav class="navbar">
         <a href="#" class="logo">U<span>Skate</span></a>
-
+    
         <div class="navbar-button">
-            <a href="index.html">Home</a>
-            <a href="shop_skate.html">Skate</a>
-            <a href="shop_clothing.html">Clothing</a>
-            <a href="shop_accessories.html">Accessories</a>
+            <div class="dropdown">
+                <a href="index.html" class="dropbtn">Home</a>
+            </div>
+
+            <div class="dropdown">
+                <a href="#skate" class="dropbtn" id="skateLink">Skate</a>
+                <div class="dropdown-content" id="skateDropdown">
+                    <a href="shop_skate.html#board">Boards</a>
+                    <a href="shop_skate.html#wheels">Wheels</a>
+                </div>
+            </div>
+    
+            <div class="dropdown">
+                <a href="#clothing" class="dropbtn" id="clothingLink">Clothing</a>
+                <div class="dropdown-content" id="clothingDropdown">
+                    <a href="shop_clothing.html#tops">Tops</a>
+                    <a href="shop_clothing.html#sweatshirt">Sweatshirt</a>
+                    <a href="shop_clothing.html#bottoms">Bottoms</a>
+                </div>
+            </div>
+    
+            <div class="dropdown">
+                <a href="#accessories" class="dropbtn" id="accessoriesLink">Accessories</a>
+                <div class="dropdown-content" id="accessoriesDropdown">
+                    <a href="shop_accessories.html#headwear">Headwear</a>
+                    <a href="shop_accessories.html#socks">Socks</a>
+                </div>
+            </div>
         </div>
-        
+    
         <div class="navbar-extra">
             <a href="#customboard" id="custom">Custom Your Own Board</a>
-            <a href="productview.html" id="search"><i data-feather="search"></i></a>
-            <a href="productview.html" id="menu"><i data-feather="menu"></i></a>
+        </div>
+        <div class="search-bar-class">
+            <i data-feather="search" class="search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search product.." class="search-bar">
         </div>
     </nav>
 
     <section class="product-section">
         <h2 class="category-title">Tops</h2>
-        <div class="product-container">
+        <div class="product-container" id="tops">
             <a href="productview.html">
                 <div class="product-card">
                     <img src="img/tops1.png" alt="Tops1">
@@ -87,7 +114,7 @@
             </a>
         </div>
         <h2 class="category-title">Sweatshirts</h2>
-        <div class="product-container">
+        <div class="product-container" id="sweatshirt">
             <a href="productview.html">
                 <div class="product-card">
                     <img src="img/sweatshirts1.png" alt="Sweatshirts1">
@@ -132,7 +159,7 @@
             </a>
         </div>
         <h2 class="category-title">Bottoms</h2>
-        <div class="product-container">
+        <div class="product-container" id="bottoms">
             <a href="productview.html">
                 <div class="product-card">
                     <img src="img/bottoms1.png" alt="Bottoms1">
@@ -188,5 +215,6 @@
     <script>
         feather.replace();
     </script>
+    <script src="style.js"></script>
 </body>
 </html>

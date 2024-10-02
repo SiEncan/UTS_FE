@@ -3,6 +3,10 @@
     src: url('fonts/UrbanJungle.otf') format('truetype');
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -24,6 +28,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 2rem;
     padding: 1.4rem 7%;
     background-color: rgb(49, 49, 49);
     position: fixed;
@@ -31,23 +36,34 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
+    font-size: 20px;
 }
 
 .navbar .logo {
     font-size: 4rem;
     color: white;
-    margin-right: 10rem;
 }
 
 .navbar .logo span {
     color: rgb(217, 176, 127);
+    margin-right: 7rem;
+}
+
+/* * {
+    border: 1px solid red;
+} */
+
+.navbar .navbar-button {
+   display: flex;
+   gap: 1rem;
 }
 
 .navbar .navbar-button a {
     color: white;
     display: inline-block;
-    font-size: 2rem;
-    margin: 0 2rem;
+    font-size: 200%;
+    display: flex;
+    align-items: center;
 }
 
 .navbar .navbar-button a:hover {
@@ -55,15 +71,21 @@ body {
     transition: 0.2s;
 }
 
+.navbar .navbar-extra {
+    display: flex;
+}
+
 .navbar .navbar-extra #custom {
-    font-size: 1.5rem;
+    font-size: 100%;
     align-items: center;
     background-color: rgb(215, 108, 108);
     padding: 1rem 1rem;
     border-radius: 15px;
     display: inline-block;
     transition: 0.2s;
-    /* margin-right: 2rem; */
+    width: 200px;
+    max-height: 100px;
+    text-align: center;
 }
 
 .navbar .navbar-extra #custom:hover {
@@ -81,6 +103,70 @@ body {
     transition: 0.2s;
 }
 
+.search-bar {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    width: 250px;
+    transition: width 0.4s ease-in-out;
+}
+
+.search-bar-class {
+    position: relative;
+    display: flex;
+    left: 0;
+}
+
+.search-bar-class .search-icon {
+    position: absolute;
+    right: 5px;
+    z-index: 99999;
+    top: 7px;
+    color: black;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #333;
+    color: white;
+    padding: 0.5em;
+    border: none;
+    text-decoration: none;
+}
+
+.dropdown-content {
+    display: none; /* Disembunyikan secara default */
+    position: absolute;
+    background-color: #4f4f4f;
+    min-width: 360px;
+    padding: 25px 0 25px 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    opacity: 0;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Menampilkan dropdown saat di-klik dengan kelas "show" */
+.dropdown-content.show {
+    display: block;
+    opacity: 88%;
+}
+
 .product-section {
     margin-top: 3rem;
 }
@@ -91,11 +177,12 @@ body {
     color: white;
     margin-bottom: 2rem;
     padding-bottom: 10px;
+    margin: 0 auto;
+    margin-top: 4rem;
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     border-bottom: 5px solid #ffffff;
     width: 70rem;
-    margin: 0 auto;
 }
 
 .product-container {

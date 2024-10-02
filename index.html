@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title>USkate</title>
-=======
     <title>Document</title>
->>>>>>> 8afd7aa123590733a19e820dd9ff059c2b7eb8d4
     <link href="https://fonts.cdnfonts.com/css/blowbrush" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="styles.css">
@@ -15,72 +11,46 @@
 <body>
     <nav class="navbar">
         <a href="#" class="logo">U<span>Skate</span></a>
-<<<<<<< HEAD
-
-        <div class="navbar-button">
-            <a href="index.html">Home</a>
-            <a href="shop_skate.html">Skate</a>
-            <a href="shop_clothing.html">Clothing</a>
-            <a href="shop_accessories.html">Accessories</a>
-        </div>
-        
-=======
     
         <div class="navbar-button">
-            <a href="#home">Home</a> <!-- Tidak ada dropdown -->
+            <div class="dropdown">
+                <a href="index.html" class="dropbtn">Home</a>
+            </div>
 
             <div class="dropdown">
-                <a href="#skate" class="dropbtn" id="skateLink">Skate</a> <!-- Tautan menuju halaman #skate -->
+                <a href="#skate" class="dropbtn" id="skateLink">Skate</a>
                 <div class="dropdown-content" id="skateDropdown">
-                    <a href="#skateboards">Boards</a>
-                    <a href="#wheels">Wheels</a>
+                    <a href="shop_skate.html#board">Boards</a>
+                    <a href="shop_skate.html#wheels">Wheels</a>
                 </div>
             </div>
     
             <div class="dropdown">
-                <a href="#clothing" class="dropbtn" id="clothingLink">Clothing</a> <!-- Tautan menuju halaman #clothing -->
+                <a href="#clothing" class="dropbtn" id="clothingLink">Clothing</a>
                 <div class="dropdown-content" id="clothingDropdown">
-                    <a href="#tops">Tops</a>
-                    <a href="#sweatshirt">Sweatshirt</a>
-                    <a href="#bottoms">Bottoms</a>
+                    <a href="shop_clothing.html#tops">Tops</a>
+                    <a href="shop_clothing.html#sweatshirt">Sweatshirt</a>
+                    <a href="shop_clothing.html#bottoms">Bottoms</a>
                 </div>
             </div>
     
             <div class="dropdown">
-                <a href="#accessories" class="dropbtn" id="accessoriesLink">Accessories</a> <!-- Tautan menuju halaman #accessories -->
+                <a href="#accessories" class="dropbtn" id="accessoriesLink">Accessories</a>
                 <div class="dropdown-content" id="accessoriesDropdown">
-                    <a href="#headwear">Headwear</a>
-                    <a href="#socks">Socks</a>
+                    <a href="shop_accessories.html#headwear">Headwear</a>
+                    <a href="shop_accessories.html#socks">Socks</a>
                 </div>
             </div>
         </div>
     
->>>>>>> 8afd7aa123590733a19e820dd9ff059c2b7eb8d4
         <div class="navbar-extra">
             <a href="#customboard" id="custom">Custom Your Own Board</a>
-            <a href="" id="search"><i data-feather="search"></i></a>
-            <a href="" id="menu"><i data-feather="menu"></i></a>
         </div>
-<<<<<<< HEAD
+        <div class="search-bar-class">
+            <i data-feather="search" class="search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search product.." class="search-bar">
+        </div>
     </nav>
-
-    <section class="hero" id="home">
-        <main class="content">
-            <h1>UNTAR SKATE!!</h1>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo molestiae magni consequuntur ea? Molestiae itaque, nihil fugit asperiores odit optio obcaecati 
-                illum laudantium unde accusantium distinctio officiis sint hic. Enim?</p>
-            <a href="" class="cta">SHOP NOW!!</a>
-        </main>
-    </section>
-    <script>
-        feather.replace();
-    </script>
-=======
-    </nav>    
-
-    <script>
-        feather.replace();  
-    </script>
 
     <!-- Hero Section start -->
     <section class="hero" id="home">
@@ -122,7 +92,9 @@
     </section>
     <!-- Hero Section end -->
 
+    <script>
+        feather.replace();  
+    </script>
     <script src="style.js"></script>
->>>>>>> 8afd7aa123590733a19e820dd9ff059c2b7eb8d4
 </body>
 </html>

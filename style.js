@@ -47,3 +47,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 });
+
+$(document).ready(function () {
+    // Fungsi untuk melakukan pencarian
+    $('#searchInput').on('keyup', function () {
+        var searchTerm = $(this).val().toLowerCase(); // Ambil input pencarian dan ubah jadi lowercase
+        $('.product-card').each(function () { // Loop setiap product-card
+            var productName = $(this).find('.product-name').text().toLowerCase(); // Ambil nama produk
+            if (productName.includes(searchTerm)) {
+                $(this).show(); // Tampilkan produk jika sesuai dengan pencarian
+            } else {
+                $(this).hide(); // Sembunyikan produk yang tidak sesuai
+            }
+        });
+    });
+});
