@@ -14,8 +14,14 @@
 
 body {
     font-family: 'Urban Jungle', sans-serif;
+<<<<<<< HEAD
     background-color: rgb(186, 186, 186);
     color: white;
+=======
+    background-color: rgb(19, 19, 19);
+    color: white;
+    min-height: 100vh;
+>>>>>>> 8afd7aa123590733a19e820dd9ff059c2b7eb8d4
 }
 
 .navbar {
@@ -83,15 +89,33 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
+<<<<<<< HEAD
     background-image: url(img/bg-hero.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+=======
+    background-image: url('/img/bg-hero.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 100px;
+    position: relative;
+}
+
+.hero::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgb(19, 19, 19) 30%, rgba(184, 184, 184, 0) 47%); /* untuk gradasi */
+>>>>>>> 8afd7aa123590733a19e820dd9ff059c2b7eb8d4
 }
 
 .hero .content {
     padding: 1.4rem 7%;
     max-width: 60rem;
+<<<<<<< HEAD
     background-color: rgb(127, 127, 127);
     padding: 1rem 1rem;
     border-radius: 15px;
@@ -115,3 +139,75 @@ body {
     border-radius: 0.5rem;
     box-shadow: 1px 1px 3px black;
 }
+=======
+}
+
+.hero .content h1 {
+    font-size: 3em;
+    color: #fff; /* untuk mengubah warna tulisan */
+    padding-bottom: 27vh; /* untuk mengubah posisi tulisan */
+}
+
+.hero .board {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 650px;
+}
+
+.skate {
+    border-radius: 50%;
+    width: 226px;
+    height: 500px;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.skate:hover {
+    transform: scale(1.3) translateY(-110px); /* Membesarkan ukuran gambar dan menggerakkannya ke atas */
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #333;
+    color: white;
+    padding: 0.5em;
+    border: none;
+    text-decoration: none;
+}
+
+.dropdown-content {
+    display: none; /* Disembunyikan secara default */
+    position: absolute;
+    background-color: #4f4f4f;
+    min-width: 360px;
+    padding: 25px 0 25px 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    opacity: 0;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Menampilkan dropdown saat di-klik dengan kelas "show" */
+.dropdown-content.show {
+    display: block;
+    opacity: 88%;
+}
+>>>>>>> 8afd7aa123590733a19e820dd9ff059c2b7eb8d4
