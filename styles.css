@@ -1,0 +1,117 @@
+@font-face {
+    font-family: 'Urban Jungle';
+    src: url('fonts/UrbanJungle.otf') format('truetype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Urban Jungle', sans-serif;
+    background-color: rgb(186, 186, 186);
+    color: white;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 7%;
+    background-color: rgb(49, 49, 49);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.navbar .logo {
+    font-size: 4rem;
+    color: white;
+    margin-right: 10rem;
+}
+
+.navbar .logo span {
+    color: rgb(217, 176, 127);
+}
+
+.navbar .navbar-button a {
+    color: white;
+    display: inline-block;
+    font-size: 2rem;
+    margin: 0 2rem;
+}
+
+.navbar .navbar-button a:hover {
+    color: rgb(217, 176, 127);
+    transition: 0.2s;
+}
+
+.navbar .navbar-extra #custom {
+    font-size: 1.5rem;
+    align-items: center;
+    background-color: rgb(215, 108, 108);
+    padding: 1rem 1rem;
+    border-radius: 15px;
+    display: inline-block;
+    transition: 0.2s;
+    /* margin-right: 2rem; */
+}
+
+.navbar .navbar-extra #custom:hover {
+    color: white;
+    background-color: rgb(167, 7, 7);
+}
+
+.navbar .navbar-extra a {
+    color: white;
+    margin: 0 0.5rem;
+}
+
+.navbar .navbar-extra a:hover {
+    color: rgb(217, 176, 127);
+    transition: 0.2s;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-image: url(img/bg-hero.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.hero .content {
+    padding: 1.4rem 7%;
+    max-width: 60rem;
+    background-color: rgb(127, 127, 127);
+    padding: 1rem 1rem;
+    border-radius: 15px;
+    margin-left: 10rem;
+}
+
+.hero .content h1 {
+    font-size: 5em;
+    color: white;
+    /* text-shadow: ; */
+    line-height: 1.2;
+}
+
+.hero .content .cta {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 1rem 3rem;
+    font-size: 1.4rem;
+    color: white;
+    background-color: rgb(217, 176, 127);
+    border-radius: 0.5rem;
+    box-shadow: 1px 1px 3px black;
+}
