@@ -1,3 +1,9 @@
+const navbarButton = document.querySelector(".navbar-button");
+document.querySelector('#menu').onclick = () => {
+    navbarButton.classList.toggle('active');
+};
+
+
 document.addEventListener("DOMContentLoaded", function () {
 
     const skateLink = document.getElementById('skateLink');

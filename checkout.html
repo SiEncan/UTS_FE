@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Custom Skateboard Builder</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .checkout-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .shipping-form {
+            flex: 2;
+            padding: 20px;
+            border-right: 1px solid #e0e0e0;
+        }
+        .order-summary {
+            flex: 1;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="email"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .total {
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .cart-item {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .cart-item img {
+            max-width: 100px;
+            float: left;
+            margin-right: 10px;
+        }
+        .submit-btn {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <div class="shipping-form">
+            <h2>1. SHIPPING</h2>
+            <form>
+                <div class="form-group">
+                    <label for="firstName">First Name*</label>
+                    <input type="text" id="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name*</label>
+                    <input type="text" id="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="postalCode">Postal Code*</label>
+                    <input type="text" id="postalCode" required>
+                </div>
+                <div class="form-group">
+                    <label for="address1">Address Line 1*</label>
+                    <input type="text" id="address1" required>
+                </div>
+                <div class="form-group">
+                    <label for="address2">Address Line 2</label>
+                    <input type="text" id="address2">
+                </div>
+                <div class="form-group">
+                    <label for="city">City/Municipality*</label>
+                    <input type="text" id="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="province">Province/Territory*</label>
+                    <input type="text" id="province" required>
+                </div>
+                <div class="form-group">
+                    <label for="country">Country/Region</label>
+                    <input type="text" id="country" value="Canada" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Select Delivery Method</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="delivery" value="standard" checked> Standard (FREE)
+                        </label>
+                        <label>
+                            <input type="radio" name="delivery" value="express"> Express ($15.00)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Shipping Phone*</label>
+                    <input type="text" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email*</label>
+                    <input type="email" id="email" required>
+                </div>
+                <button type="submit" class="submit-btn">CONTINUE TO BILLING</button>
+            </form>
+        </div>
+        <div class="order-summary">
+            <h2>SUMMARY</h2>
+            <div class="summary-item">
+                <span>SUBTOTAL</span>
+                <span id="subtotal"></span>
+            </div>
+            <div class="summary-item">
+                <span>SHIPPING & HANDLING</span>
+                <span id="shipping">FREE</span>
+            </div>
+            <div class="summary-item">
+                <span>TAXES</span>
+                <span id="taxes"></span>
+            </div>
+            <div class="summary-item total">
+                <span>TOTAL</span>
+                <span id="total"></span>
+            </div>
+            <h3>IN YOUR CART (1)</h3>
+            <div class="cart-item">
+                <img src="/api/placeholder/100/100" alt="Custom Skateboard">
+                <h4>Custom Skateboard</h4>
+                <p>Deck: Element Deck</p>
+                <p>Trucks: Independent Trucks</p>
+                <p>Wheels: Spitfire Wheels</p>
+                <p>Bearings: Bones Reds Bearings</p>
+                <p>Risers: Independent Risers</p>
+                <p>Griptape: Mob Griptape</p>
+                <p>Qty: 1</p>
+                <p>CAD 241.90</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function loadCheckoutData() {
+            const subtotal = parseFloat(localStorage.getItem('subtotal') || '0');
+            const components = ['deck', 'trucks', 'wheels', 'bearings'];
+            let cartItemHtml = '';
+
+            components.forEach(component => {
+                const item = JSON.parse(localStorage.getItem(`selected_${component}`));
+                if (item) {
+                    cartItemHtml += `<p>${component.charAt(0).toUpperCase() + component.slice(1)}: ${item.name} - CAD ${item.price.toFixed(2)}</p>`;
+                }   
+            });
+
+            // Update subtotal
+            document.getElementById('subtotal').textContent = `CAD ${subtotal.toFixed(2)}`;
+
+            // Update cart item details
+            const cartItemDiv = document.querySelector('.cart-item');
+            cartItemDiv.innerHTML = `
+                <img src="/api/placeholder/100/100" alt="Custom Skateboard">
+                <h4>Custom Skateboard</h4>
+                ${cartItemHtml}
+                <p>Qty: 1</p>
+                <p>CAD ${subtotal.toFixed(2)}</p>
+            `;
+
+            // Recalculate total (assuming tax rate is 13%)
+            const taxRate = 0.13;
+            const taxes = subtotal * taxRate;
+            const total = subtotal + taxes;
+
+            document.getElementById('taxes').textContent = `CAD ${taxes.toFixed(2)}`;
+            document.getElementById('total').textContent = `CAD ${total.toFixed(2)}`;
+        }
+
+        // Panggil fungsi saat halaman dimuat
+        window.onload = loadCheckoutData;
+    </script>
+</body>
+</html>

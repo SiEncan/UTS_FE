@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skate</title>
+    <title>Heroin Swampy's Wide Boy Deck - 10.75</title>
     <link href="https://fonts.cdnfonts.com/css/blowbrush" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="styles3.css">
@@ -11,19 +11,46 @@
 <body>
     <nav class="navbar">
         <a href="#" class="logo">U<span>Skate</span></a>
-
+    
         <div class="navbar-button">
-            <a href="index.html">Home</a>
-            <a href="shop_skate.html">Skate</a>
-            <a href="shop_clothing.html">Clothing</a>
-            <a href="shop_accessories.html">Accessories</a>
+            <div class="dropdown">
+                <a href="index.html" class="dropbtn">Home</a>
+            </div>
+
+            <div class="dropdown">
+                <a href="#skate" class="dropbtn" id="skateLink">Skate</a>
+                <div class="dropdown-content" id="skateDropdown">
+                    <a href="shop_skate.html#board">Boards</a>
+                    <a href="shop_skate.html#wheels">Wheels</a>
+                </div>
+            </div>
+    
+            <div class="dropdown">
+                <a href="#clothing" class="dropbtn" id="clothingLink">Clothing</a>
+                <div class="dropdown-content" id="clothingDropdown">
+                    <a href="shop_clothing.html#tops">Tops</a>
+                    <a href="shop_clothing.html#sweatshirt">Sweatshirt</a>
+                    <a href="shop_clothing.html#bottoms">Bottoms</a>
+                </div>
+            </div>
+    
+            <div class="dropdown">
+                <a href="#accessories" class="dropbtn" id="accessoriesLink">Accessories</a>
+                <div class="dropdown-content" id="accessoriesDropdown">
+                    <a href="shop_accessories.html#headwear">Headwear</a>
+                    <a href="shop_accessories.html#socks">Socks</a>
+                </div>
+            </div>
         </div>
-        
+    
         <div class="navbar-extra">
-            <a href="#customboard" id="custom">Custom Your Own Board</a>
-            <a href="" id="search"><i data-feather="search"></i></a>
-            <a href="" id="menu"><i data-feather="menu"></i></a>
+            <a href="custom.html" id="custom">Custom Your Own Board</a>
         </div>
+        <div class="search-bar-class">
+            <i data-feather="search" id="searchIcon" class="search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search product.." class="search-bar">
+        </div>
+        <a href="#" id="menu"><i data-feather="menu"></i></a>
     </nav>
 
     <div class="product-container">
@@ -31,7 +58,7 @@
             <img src="img/skateboard8.png" alt="Skateboard Pro">
         </div>
         <div class="product-info">
-            <h1 class="product-title">Skateboard Pro</h1>
+            <h1 class="product-title">Heroin Swampy's Wide Boy Deck - 10.75</h1>
             <p class="product-price">Rp1.190.000</p>
             <p class="product-description">
                 The Skateboard Pro is designed for serious skaters who demand the best. With its durable construction and responsive deck, this board is perfect for both street and park skating.
@@ -54,42 +81,42 @@
         <div class="related-items">
             <div class="related-item">
                 <img src="img/skateboard1.png" alt="Related Product 1">
-                <p>Skateboard Classic</p>
+                <p>Sandoval Racecar Deck - 9.02</p>
                 <p>Rp1.590.000</p>
             </div>
             <div class="related-item">
                 <img src="img/skateboard2.png" alt="Related Product 2">
-                <p>Skateboard Speed</p>
+                <p>Krooked Gottwig RA Deck - 8.38</p>
                 <p>Rp2.159.000</p>
             </div>
             <div class="related-item">
                 <img src="img/skateboard3.png" alt="Related Product 3">
-                <p>Pro Wheels</p>
+                <p>Gonz Sweatpants Deck - 8.5</p>
                 <p>Rp450.000</p>
             </div>
             <div class="related-item">
                 <img src="img/skateboard4.png" alt="Related Product 1">
-                <p>Skateboard Classic</p>
+                <p>Spitfire Formula Four Conical Full 99</p>
                 <p>Rp1.590.000</p>
             </div>
             <div class="related-item">
                 <img src="img/skateboard6.png" alt="Related Product 2">
-                <p>Skateboard Speed</p>
+                <p>OJ Elite Nomad Wheels 95a - 53mm</p>
                 <p>Rp2.159.000</p>
             </div>
             <div class="related-item">
                 <img src="img/skateboard7.png" alt="Related Product 3">
-                <p>Pro Wheels</p>
+                <p>Slime Balls OG Slime Wheels White 78a - 60mm</p>
                 <p>Rp450.000</p>
             </div>
             <div class="related-item">
                 <img src="img/skateboard9.png" alt="Related Product 1">
-                <p>Skateboard Classic</p>
+                <p>Spitfire Formula Four Grimple Stix Lock In Full 99a - 57mm</p>
                 <p>Rp1.590.000</p>
             </div>
             <div class="related-item">
                 <img src="img/skateboard10.png" alt="Related Product 2">
-                <p>Skateboard Speed</p>
+                <p>Four Nomad Stix Wheels</p>
                 <p>Rp2.159.000</p>
             </div>
         </div>
@@ -98,5 +125,6 @@
     <script>
         feather.replace();
     </script>
+    <script src="style.js"></script>
 </body>
 </html>

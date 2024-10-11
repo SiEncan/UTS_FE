@@ -24,30 +24,39 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.4rem 7%;
+    gap: 2rem;
+    padding: 1.4rem 5%;
     background-color: rgb(49, 49, 49);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
+    font-size: 20px;
 }
 
 .navbar .logo {
     font-size: 4rem;
     color: white;
-    margin-right: 10rem;
 }
 
 .navbar .logo span {
     color: rgb(217, 176, 127);
+    margin-right: 7rem;
+}
+
+.navbar .navbar-button {
+   display: flex;
+   gap: 1rem;
+   margin-left: 275px;
 }
 
 .navbar .navbar-button a {
     color: white;
     display: inline-block;
-    font-size: 2rem;
-    margin: 0 2rem;
+    font-size: 200%;
+    display: flex;
+    align-items: center;
 }
 
 .navbar .navbar-button a:hover {
@@ -55,15 +64,21 @@ body {
     transition: 0.2s;
 }
 
+.navbar .navbar-extra {
+    display: flex;
+}
+
 .navbar .navbar-extra #custom {
-    font-size: 1.5rem;
+    font-size: 125%;
     align-items: center;
-    background-color: rgb(215, 108, 108);
+    background-color: rgb(183, 55, 55);
     padding: 1rem 1rem;
     border-radius: 15px;
     display: inline-block;
     transition: 0.2s;
-    /* margin-right: 2rem; */
+    width: 250px;
+    max-height: 100px;
+    text-align: center;
 }
 
 .navbar .navbar-extra #custom:hover {
@@ -81,10 +96,77 @@ body {
     transition: 0.2s;
 }
 
+#menu {
+    display: none;
+}
+
+.search-bar-class {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #333;
+}
+
+.search-bar {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    width: 300px;
+    height: 50px;
+    transition: width 0.4s ease-in-out;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #333;
+    color: white;
+    padding: 0.5em;
+    border: none;
+    text-decoration: none;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #4f4f4f;
+    min-width: 360px;
+    padding: 25px 0 25px 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    opacity: 0;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-content.show {
+    display: block;
+    opacity: 88%;
+}
+
 .product-container {
     max-width: 1200px;
     margin: 2rem auto;
-    margin-top: 50px;
+    margin-top: 100px;
     padding: 2rem;
     background-color: white;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -112,7 +194,7 @@ body {
 .product-title {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    font-family: 'Urban Jungle', sans-serif;
+    font-family: Arial, sans-serif;
     color: #333;
 }
 
@@ -187,4 +269,164 @@ body {
     width: 100%;
     height: auto;
     border-radius: 8px;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+    .navbar .logo {
+        font-size: 2rem;
+    }
+    
+    .navbar .logo span {
+        margin-right: 0rem;
+    }
+
+    .navbar .navbar-button {
+        gap: 1rem;
+        margin-left: 25px;
+     }
+    
+    .navbar .navbar-button a {
+        font-size: 1.25rem;
+    }
+    
+    .navbar .navbar-extra #custom {
+        font-size: 0.7rem;
+        width: 125px;
+        max-height: 50px;
+    }
+    
+    .search-bar {
+        padding: 0.5rem;
+        border: none;
+        border-radius: 0.3rem;
+        font-size: 0.8rem;
+        height: 35px;
+        width: 150px;
+    }
+    
+    .dropdown-content {
+        min-width: 200px;
+        padding: 10px 0 10px 0;
+    }
+    
+    .product-container {
+        max-width: 750px;
+        margin: 0 auto;
+        margin-top: 100px;
+        padding-bottom: 20px;
+    }
+    
+    .product-card {
+        width: 200px;
+    }
+    
+    .product-card:hover {
+        transform: scale(1.05);
+    }
+    
+    .product-name {
+        font-size: 1rem;
+    }
+    
+    .product-price {
+        font-size: 1rem;
+    }
+    
+    .product-section {
+        margin-left: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 75%;
+    }
+
+    .navbar .logo {
+        font-size: 3rem;
+        color: white;
+    }
+
+    #menu {
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+    }
+    .navbar .navbar-button {
+        flex-direction: column;
+        gap: 0.5rem;
+        position: absolute;
+        top: 100%;
+        right: -100%;
+        color: white;
+        background-color: #333;
+        width: 20rem;
+        height: 200vh;
+        transition: 0.2s;
+    }
+
+    .navbar .navbar-button.active {
+        right: 0;
+    }
+
+    .navbar .navbar-button a {
+        color: #4f4f4f;
+        margin: 1.5rem;
+        padding: 0.5rem;
+        font-size: 2rem;
+    }
+
+    .navbar .navbar-button a {
+        color: white;
+    }
+
+    .navbar .navbar-extra #custom {
+        font-size: 70%;
+        width: 200px;
+        max-height: 100px;
+    }
+
+    .product-container {
+        max-width: 750px;
+        margin: 0 auto;
+        padding-bottom: 20px;
+    }
+
+    .search-bar {
+        padding: 0.5rem;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        width: 200px;
+    }
+}
+
+@media (max-width: 450px) {
+    html {
+        font-size: 55%;
+    }
+
+    .navbar .logo {
+        font-size: 2rem;
+    }
+
+    .navbar .navbar-extra #custom {
+        font-size: 50%;
+        width: 100px;
+        max-height: 100px;
+    }
+
+    .search-bar {
+        width: 150px;
+        height: 25px;
+    }
+
+    .product-container {
+        max-width: 400px;
+    }
+    
+    .product-card {
+        width: 175px;
+    }
 }

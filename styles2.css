@@ -16,6 +16,10 @@ html {
     text-decoration: none;
 }
 
+/* * {
+    border: 1px solid red;
+} */
+
 body {
     font-family: Arial, sans-serif;
     background-color: rgb(186, 186, 186);
@@ -29,7 +33,7 @@ body {
     justify-content: space-between;
     align-items: center;
     gap: 2rem;
-    padding: 1.4rem 7%;
+    padding: 1.4rem 5%;
     background-color: rgb(49, 49, 49);
     position: fixed;
     top: 0;
@@ -49,13 +53,10 @@ body {
     margin-right: 7rem;
 }
 
-/* * {
-    border: 1px solid red;
-} */
-
 .navbar .navbar-button {
    display: flex;
    gap: 1rem;
+   margin-left: 275px;
 }
 
 .navbar .navbar-button a {
@@ -76,14 +77,14 @@ body {
 }
 
 .navbar .navbar-extra #custom {
-    font-size: 100%;
+    font-size: 125%;
     align-items: center;
-    background-color: rgb(215, 108, 108);
+    background-color: rgb(183, 55, 55);
     padding: 1rem 1rem;
     border-radius: 15px;
     display: inline-block;
     transition: 0.2s;
-    width: 200px;
+    width: 250px;
     max-height: 100px;
     text-align: center;
 }
@@ -103,6 +104,10 @@ body {
     transition: 0.2s;
 }
 
+#menu {
+    display: none;
+}
+
 .search-bar-class {
     position: relative;
     display: flex;
@@ -118,22 +123,12 @@ body {
 
 .search-bar {
     padding: 0.5rem;
-    padding-right: 30px; /* Make room for the icon */
     border: none;
     border-radius: 10px;
-    font-size: 1.2rem;
-    width: 250px;
+    font-size: 1rem;
+    width: 300px;
+    height: 50px;
     transition: width 0.4s ease-in-out;
-}
-
-/* Tambahkan CSS untuk tampilan product-card yang disembunyikan */
-.product-card {
-    transition: opacity 0.2s ease-in-out;
-}
-
-.product-card.hidden {
-    opacity: 0;
-    visibility: hidden;
 }
 
 .dropdown {
@@ -150,7 +145,7 @@ body {
 }
 
 .dropdown-content {
-    display: none; /* Disembunyikan secara default */
+    display: none;
     position: absolute;
     background-color: #4f4f4f;
     min-width: 360px;
@@ -171,12 +166,10 @@ body {
     background-color: #f1f1f1;
 }
 
-/* Menampilkan dropdown saat di-klik dengan kelas "show" */
 .dropdown-content.show {
     display: block;
     opacity: 88%;
 }
-
 
 .category-title {
     font-family: 'Urban Jungle', sans-serif;
@@ -184,7 +177,7 @@ body {
     color: white;
     margin-bottom: 2rem;
     padding-bottom: 10px;
-    margin-left: 650px;
+    margin: 0 auto;
     margin-top: 4rem;
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -199,8 +192,7 @@ body {
     flex-wrap: wrap;
     gap: 2rem;
     max-width: 1200px;
-    /* margin: 0 auto; */
-    margin-left: 600px;
+    margin: 0 auto;
     padding-bottom: 20px;
 }
 
@@ -241,66 +233,231 @@ body {
 }
 
 .product-section {
-    width: 80%; /* Lebar container product */
+    width: 100%;
     padding: 20px;
+    margin: 0 auto;
 }
 
 .filter-section {
     position: fixed;
     color: black;
-    order: 1;
-    width: 20%; /* Lebar container filter */
+    width: 20%;
     padding: 20px;
     background-color: #f7f7f7;
     border-radius: 5px;
     max-width: 300px;
-    /* height: 200px; */
     margin-top: 100px;
-    right: 200px;
+    left: 5%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .filter-section h3 {
     font-family: 'Urban Jungle', sans-serif;
-    font-size: 18px;
     color: rgb(239, 164, 72);
-    margin-bottom: 10px;
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
 }
 
 .checkbox-container {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 0.3em;
 }
 
 .checkbox-container input[type="checkbox"] {
-    margin-top: 8px;
-    margin-right: 10px;
+    margin-top: 0.7em;
+    margin-right: 0.8em;
 }
 
 .checkbox-container label {
-    margin-right: 210px;
+    font-size: 1em;
+    margin-right: 20em;
 }
 
 .filter-section input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    width: 100%;
+    padding: 0.8em;
+    margin-bottom: 0.8em;
+    border: 0.1em solid #ddd;
+    border-radius: 0.2em;
+    box-sizing: border-box;
 }
 
 .filter-section button {
     width: 100%;
-    padding: 10px;
+    padding: 0.8em;
     background-color: rgb(217, 176, 127);
     color: white;
-    border: none;
-    border-radius: 3px;
+    border-radius: 0.3em;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1em;
 }
 
 .filter-section button:hover {
     background-color: rgb(239, 164, 72);
     transition: 0.1s;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+    .navbar .logo {
+        font-size: 2rem;
+    }
+    
+    .navbar .logo span {
+        margin-right: 0rem;
+    }
+
+    .navbar .navbar-button {
+        gap: 1rem;
+        margin-left: 25px;
+     }
+    
+    .navbar .navbar-button a {
+        font-size: 1.25rem;
+    }
+    
+    .navbar .navbar-extra #custom {
+        font-size: 0.7rem;
+        width: 125px;
+        max-height: 50px;
+    }
+    
+    .search-bar {
+        padding: 0.5rem;
+        border: none;
+        border-radius: 0.3rem;
+        font-size: 0.8rem;
+        height: 35px;
+        width: 150px;
+    }
+    
+    .dropdown-content {
+        min-width: 200px;
+        padding: 10px 0 10px 0;
+    }
+    
+    .category-title {
+        font-size: 3rem;
+        margin: 0 auto;
+        margin-top: 2rem;
+        width: 42rem;
+    }
+    
+    .product-container {
+        max-width: 750px;
+        margin: 0 auto;
+        padding-bottom: 20px;
+    }
+    
+    .product-card {
+        width: 200px;
+    }
+    
+    .product-card:hover {
+        transform: scale(1.05);
+    }
+    
+    .product-name {
+        font-size: 1rem;
+    }
+    
+    .product-price {
+        font-size: 1rem;
+    }
+    
+    .product-section {
+        margin-left: 200px;
+    }
+    
+    .filter-section {
+        font-size: 0.8em;
+        left: 2em;
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 75%;
+    }
+
+    .navbar .logo {
+        font-size: 3rem;
+        color: white;
+    }
+
+    #menu {
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+    }
+    .navbar .navbar-button {
+        flex-direction: column;
+        gap: 0.5rem;
+        position: absolute;
+        top: 100%;
+        right: -100%;
+        color: white;
+        background-color: #333;
+        width: 20rem;
+        height: 200vh;
+        transition: 0.2s;
+    }
+
+    .navbar .navbar-button.active {
+        right: 0;
+    }
+
+    .navbar .navbar-button a {
+        color: #4f4f4f;
+        margin: 1.5rem;
+        padding: 0.5rem;
+        font-size: 2rem;
+    }
+
+    .navbar .navbar-button a {
+        color: white;
+    }
+
+    .navbar .navbar-extra #custom {
+        font-size: 70%;
+        width: 200px;
+        max-height: 100px;
+    }
+
+    .search-bar {
+        padding: 0.5rem;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        width: 200px;
+    }
+}
+
+@media (max-width: 450px) {
+    html {
+        font-size: 55%;
+    }
+
+    .navbar .navbar-extra #custom {
+        font-size: 50%;
+        width: 100px;
+        max-height: 100px;
+    }
+
+    .search-bar {
+        width: 200px;
+        height: 25px;
+    }
+
+    .product-container {
+        max-width: 400px;
+    }
+    
+    .product-card {
+        width: 175px;
+    }
 }

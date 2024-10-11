@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Skateboard Builder</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles4.css">
+</head>
+<body>
+    <div class="builder-container">
+        <div class="preview">
+            <div class="preview-content">
+                <h1>C'MON CUSTOM YOUR OWN BOARD</h1>
+                <p>LET THE IMAGINATION<br>FREE AND WILD!</p>
+                <button class="cta-button" onclick="openModal('deck')">CLICK HERE</button>
+                <button class="reset-button" onclick="resetBuilder()">RESET</button>
+            </div>
+        </div>
+        <div class="options">
+            <div class="option-card" onclick="tryOpenModal('deck')">
+                <div class="option-icon"></div>
+                <div>
+                    <h3>Deck</h3>
+                    <p id="deck-selection">Please select</p>
+                </div>
+                <div class="tooltip">Select a deck first</div>
+            </div>
+            <div class="option-card" onclick="tryOpenModal('trucks')">
+                <div class="option-icon"></div>
+                <div>
+                    <h3>Trucks</h3>
+                    <p id="trucks-selection">Please select</p>
+                </div>
+                <div class="tooltip">Select a deck first</div>
+            </div>
+            <div class="option-card" onclick="tryOpenModal('wheels')">
+                <div class="option-icon"></div>
+                <div>
+                    <h3>Wheels</h3>
+                    <p id="wheels-selection">Please select</p>
+                </div>
+                <div class="tooltip">Select trucks first</div>
+            </div>
+            <div class="option-card" onclick="tryOpenModal('bearings')">
+                <div class="option-icon"></div>
+                <div>
+                    <h3>Bearings</h3>
+                    <p id="bearings-selection">Please select</p>
+                </div>
+                <div class="tooltip">Select wheels first</div>
+            </div>
+            <div class="option-card" onclick="tryOpenModal('griptape')">
+                <div class="option-icon"></div>
+                <div>
+                    <h3>Griptape</h3>
+                    <p id="griptape-selection">Please select</p>
+                </div>
+                <div class="tooltip">Select bearings first</div>
+            </div>
+            <button id="checkoutButton" onclick="goToCheckout()" disabled>Proceed to Checkout</button>
+        </div>
+        
+    <!-- Template for all modals -->
+    <template id="modal-template">
+        <div class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Select <span class="component-type"></span></h2>
+                <div class="product-grid"></div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        const components = ['deck', 'trucks', 'wheels', 'bearings', 'griptape'];
+        const selections = {
+            deck: null,
+            trucks: null,
+            wheels: null,
+            bearings: null,
+            griptape: null
+        };
+
+        function formatRupiah(value) {
+        return 'Rp ' + value.toLocaleString('id-ID', { minimumFractionDigits: 0 });
+    }
+
+        const generateProducts = (type) => {
+            const products = [];
+            const brands = ['Element', 'Verb', 'KFD', 'Plan B', 'Zero', 'Toy Machine', 'Santa Cruz', 'Powell Peralta', 'Blind', 'Blueprint'];
+            
+            const images = {
+                deck: {
+                    'Element': 'img/deck/elementdeck.png',
+                    'Verb': 'img/deck/verbdeck.png',
+                    'KFD': 'img/deck/kfddeck.png',
+                    'Plan B': 'img/deck/planbdeck.png',
+                    'Zero': 'img/deck/zerodeck.png',
+                    'Toy Machine': 'img/deck/toymachinedeck.png',
+                    'Santa Cruz': 'img/deck/santacruzdeck.png',
+                    'Powell Peralta': 'img/deck/powellperaltadeck.png',
+                    'Blind': 'img/deck/blinddeck.png',
+                    'Blueprint': 'img/deck/blueprintdeck.png'
+                },
+                trucks: {
+                    'Element': 'img/trucks/elementtrucks.png',
+                    'Verb': 'img/trucks/hydroholltrucks.png',
+                    'KFD': 'img/trucks/hydroponictrucks.png',
+                    'Plan B': 'img/trucks/ironhightrucks.png',
+                    'Zero': 'img/trucks/pivottrucks.png',
+                    'Toy Machine': 'img/trucks/pivotwraptrucks.png',
+                    'Santa Cruz': 'img/trucks/tensoralumtrucks.png',
+                    'Powell Peralta': 'img/trucks/tensormagtrucks.png',
+                    'Blind': 'img/trucks/thunderholltrucks.png',
+                    'Blueprint': 'img/trucks/venturetrucks.png'
+                },
+                wheels: {
+                    'Element': 'img/wheels/1.png',
+                    'Verb': 'img/wheels/2.png',
+                    'KFD': 'img/wheels/kfd.png',
+                    'Plan B': 'img/wheels/3.png',
+                    'Zero': 'img/wheels/4.png',
+                    'Toy Machine': 'img/wheels/5.png',
+                    'Santa Cruz': 'img/wheels/6.png',
+                    'Powell Peralta': 'img/wheels/7.png',
+                    'Blind': 'img/wheels/8.png',
+                    'Blueprint': 'img/wheels/9.png'
+                },
+                bearings: {
+                    'Element': 'img/bearings/1.png',
+                    'Verb': 'img/bearings/2.png',
+                    'KFD': 'img/bearings/3.png',
+                    'Plan B': 'img/bearings/4.png',
+                    'Zero': 'img/bearings/5.png',
+                    'Toy Machine': 'img/bearings/6.png',
+                    'Santa Cruz': 'img/bearings/7.png',
+                    'Powell Peralta': 'img/bearings/8.png',
+                    'Blind': 'img/bearings/9.png',
+                    'Blueprint': 'img/bearings/10.png'
+                },
+                griptape: {
+                    'Element': 'img/griptape/1.png',
+                    'Verb': 'img/griptape/2.png',
+                    'KFD': 'img/griptape/3.png',
+                    'Plan B': 'img/griptape/4.png',
+                    'Zero': 'img/griptape/5.png',
+                    'Toy Machine': 'img/griptape/6.png',
+                    'Santa Cruz': 'img/griptape/7.png',
+                    'Powell Peralta': 'img/griptape/8.png',
+                    'Blind': 'img/griptape/9.png',
+                    'Blueprint': 'img/griptape/10.png' 
+                }
+            };
+    
+            for (let i = 0; i < brands.length; i++) {
+            const price = (Math.random() * 500000 + 200000).toFixed(0);  
+            const originalPrice = (parseFloat(price) * 1.2).toFixed(0);
+            const discount = ((1 - (price / originalPrice)) * 100).toFixed(0);
+            products.push({
+                name: `${brands[i]} ${type.charAt(0).toUpperCase() + type.slice(1)}`,
+                price: parseFloat(price),
+                originalPrice: parseFloat(originalPrice),
+                discount: parseInt(discount),
+                image: images[type][brands[i]]
+            });
+        }
+        return products;
+    };
+
+        components.forEach(component => {
+        const template = document.getElementById('modal-template').content.cloneNode(true);
+        const modal = template.querySelector('.modal');
+        modal.id = `${component}Modal`;
+        modal.querySelector('.component-type').textContent = component.charAt(0).toUpperCase() + component.slice(1);
+
+        const productGrid = modal.querySelector('.product-grid');
+        const products = generateProducts(component);
+
+        products.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p class="price">${formatRupiah(product.price)}</p>
+                <p class="original-price">${formatRupiah(product.originalPrice)}</p>
+                <p class="discount">Save ${product.discount}%</p>
+                <button class="add-btn" onclick="selectProduct('${component}', '${product.name}', ${product.price})">Add</button>
+            `;
+            productGrid.appendChild(productCard);
+        });
+
+        document.body.appendChild(template);
+    });
+
+        function selectProduct(component, productName, price) {
+            selections[component] = { name: productName, price: price };
+            document.getElementById(`${component}-selection`).textContent = `${productName} - $${price.toFixed(2)}`;
+            document.getElementById(`${component}Modal`).style.display = 'none';
+            
+            updateUIState();
+            updateTotalPrice();
+        }
+
+        function updateTotalPrice() {
+        const total = Object.values(selections).reduce((sum, item) => sum + (item ? item.price : 0), 0);
+        const totalPriceElement = document.getElementById('total-price');
+        if (totalPriceElement) {
+            totalPriceElement.textContent = `Total: ${formatRupiah(total)}`;
+        } else {
+            const totalPriceDiv = document.createElement('div');
+            totalPriceDiv.id = 'total-price';
+            totalPriceDiv.textContent = `Total: ${formatRupiah(total)}`;
+            document.querySelector('.builder-container').appendChild(totalPriceDiv);
+        }
+    }
+
+        function resetBuilder() {
+            if (confirm('Are you sure you want to reset all your selections?')) {
+                Object.keys(selections).forEach(key => {
+                    selections[key] = null;
+                    document.getElementById(`${key}-selection`).textContent = 'Please select';
+                });
+                
+                updateUIState();
+            }
+        }
+
+        function canSelectComponent(component) {
+            const index = components.indexOf(component);
+            if (index === 0) return true;
+            return selections[components[index - 1]] !== null;
+        }
+
+        function tryOpenModal(component) {
+            if (canSelectComponent(component)) {
+                openModal(component);
+            } else {
+                showTooltip(component);
+            }
+        }
+
+        function showTooltip(component) {
+            const card = document.querySelector(`.option-card:nth-child(${components.indexOf(component) + 1})`);
+            const tooltip = card.querySelector('.tooltip');
+            tooltip.style.display = 'block';
+            setTimeout(() => {
+                tooltip.style.display = 'none';
+            }, 2000);
+        }
+
+        function openModal(type) {
+            document.getElementById(type + 'Modal').style.display = 'block';
+        }
+
+        function selectProduct(component, productName) {
+            selections[component] = productName;
+            document.getElementById(`${component}-selection`).textContent = productName;
+            document.getElementById(`${component}Modal`).style.display = 'none';
+            
+            updateUIState();
+        }
+
+        function updateUIState() {
+            components.forEach((component, index) => {
+                const card = document.querySelector(`.option-card:nth-child(${index + 1})`);
+                if (canSelectComponent(component)) {
+                    card.classList.remove('disabled');
+                } else {
+                    card.classList.add('disabled');
+                }
+            });
+        }
+
+        function selectProduct(component, productName, price) {
+            selections[component] = { name: productName, price: price };
+            document.getElementById(`${component}-selection`).textContent = `${productName} - ${formatRupiah(price)}`;
+            document.getElementById(`${component}Modal`).style.display = 'none';
+            
+            updateUIState();
+            updateTotalPrice();
+            checkAllComponentsSelected();
+        }
+
+        function updateTotalPrice() {
+            const total = Object.values(selections).reduce((sum, item) => sum + (item ? item.price : 0), 0);
+            const totalPriceElement = document.getElementById('total-price');
+            if (totalPriceElement) {
+                totalPriceElement.textContent = `Total: ${formatRupiah(total)}`;
+            } else {
+                const totalPriceDiv = document.createElement('div');
+                totalPriceDiv.id = 'total-price';
+                totalPriceDiv.textContent = `Total: ${formatRupiah(total)}`;
+                document.querySelector('.builder-container').appendChild(totalPriceDiv);
+            }
+        }
+
+        function checkAllComponentsSelected() {
+            const allSelected = Object.values(selections).every(item => item !== null);
+            const checkoutButton = document.getElementById('checkoutButton');
+            checkoutButton.style.display = allSelected ? 'block' : 'none';
+            checkoutButton.disabled = !allSelected;
+        }
+
+        function saveSelectionsToLocalStorage() {
+            Object.entries(selections).forEach(([key, value]) => {
+                localStorage.setItem(`selected_${key}`, JSON.stringify(value));
+            });
+            const total = Object.values(selections).reduce((sum, item) => sum + (item ? item.price : 0), 0);
+            localStorage.setItem('subtotal', total.toString());
+        }
+
+        function goToCheckout() {
+            saveSelectionsToLocalStorage();
+            window.location.href = 'checkout.html';
+        }
+
+        document.querySelectorAll('.close').forEach(closeBtn => {
+            closeBtn.onclick = function() {
+                this.closest('.modal').style.display = 'none';
+            }
+        });
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        updateUIState();
+    </script>
+</body>
+</html>
