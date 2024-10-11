@@ -112,20 +112,6 @@ body {
     transition: width 0.4s ease-in-out;
 }
 
-.search-bar-class {
-    position: relative;
-    display: flex;
-    left: 0;
-}
-
-.search-bar-class .search-icon {
-    position: absolute;
-    right: 5px;
-    z-index: 99999;
-    top: 7px;
-    color: black;
-}
-
 .dropdown {
     position: relative;
     display: inline-block;

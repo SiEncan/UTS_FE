@@ -103,8 +103,22 @@ body {
     transition: 0.2s;
 }
 
+.search-bar-class {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #333;
+}
+
 .search-bar {
     padding: 0.5rem;
+    padding-right: 30px; /* Make room for the icon */
     border: none;
     border-radius: 10px;
     font-size: 1.2rem;
@@ -112,18 +126,14 @@ body {
     transition: width 0.4s ease-in-out;
 }
 
-.search-bar-class {
-    position: relative;
-    display: flex;
-    left: 0;
+/* Tambahkan CSS untuk tampilan product-card yang disembunyikan */
+.product-card {
+    transition: opacity 0.2s ease-in-out;
 }
 
-.search-bar-class .search-icon {
-    position: absolute;
-    right: 5px;
-    z-index: 99999;
-    top: 7px;
-    color: black;
+.product-card.hidden {
+    opacity: 0;
+    visibility: hidden;
 }
 
 .dropdown {
@@ -167,9 +177,6 @@ body {
     opacity: 88%;
 }
 
-.product-section {
-    margin-top: 3rem;
-}
 
 .category-title {
     font-family: 'Urban Jungle', sans-serif;
@@ -177,7 +184,7 @@ body {
     color: white;
     margin-bottom: 2rem;
     padding-bottom: 10px;
-    margin: 0 auto;
+    margin-left: 650px;
     margin-top: 4rem;
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -192,7 +199,8 @@ body {
     flex-wrap: wrap;
     gap: 2rem;
     max-width: 1200px;
-    margin: 0 auto;
+    /* margin: 0 auto; */
+    margin-left: 600px;
     padding-bottom: 20px;
 }
 
@@ -226,4 +234,73 @@ body {
     font-size: 1.2rem;
     margin-top: 1rem;
     font-weight: bold;
+}
+
+.all-conta {
+    display: flex;
+}
+
+.product-section {
+    width: 80%; /* Lebar container product */
+    padding: 20px;
+}
+
+.filter-section {
+    position: fixed;
+    color: black;
+    order: 1;
+    width: 20%; /* Lebar container filter */
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    max-width: 300px;
+    /* height: 200px; */
+    margin-top: 100px;
+    right: 200px;
+}
+
+.filter-section h3 {
+    font-family: 'Urban Jungle', sans-serif;
+    font-size: 18px;
+    color: rgb(239, 164, 72);
+    margin-bottom: 10px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+.checkbox-container label {
+    margin-right: 210px;
+}
+
+.filter-section input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.filter-section button {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(217, 176, 127);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.filter-section button:hover {
+    background-color: rgb(239, 164, 72);
+    transition: 0.1s;
 }

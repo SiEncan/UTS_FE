@@ -47,110 +47,156 @@
             <a href="#customboard" id="custom">Custom Your Own Board</a>
         </div>
         <div class="search-bar-class">
-            <i data-feather="search" class="search-icon"></i>
+            <i data-feather="search" id="searchIcon" class="search-icon"></i>
             <input type="text" id="searchInput" placeholder="Search product.." class="search-bar">
         </div>
     </nav>
 
-    <section class="product-section">
-        <h2 class="category-title">Headwear</h2>
-        <div class="product-container" id="headwear">
-            <a href="productview.html">
-                <div class="product-card">
-                    <img src="img/headwear1.png" alt="Headwear">
-                    <p class="product-name">Limosine Cat Hat - White/Black</p>
-                    <p class="product-price">Rp554.000</p>
-                </div>
-            </a>
-            <a href="productview.html">
-                <div class="product-card">
-                    <img src="img/headwear2.png" alt="Headwear2">
-                    <p class="product-name">Limosine Cat Hat - Brown</p>
-                    <p class="product-price">Rp554.000</p>
-                </div>
-            </a>
-            <a href="productview.html">
-                <div class="product-card">
-                    <img src="img/headwear3.png" alt="Headwear3">
-                    <p class="product-name">Frog Going With Me? Trucker Hat - Green</p>
-                    <p class="product-price">Rp585.000</p>
-                </div>
-            </a>
-            <a href="productview.html">
-                <div class="product-card">
-                    <img src="img/headwear4.png" alt="Headwear4">
-                    <p class="product-name">Frog Going With Me? Trucker Hat - Black</p>
-                    <p class="product-price">Rp585.000</p>
-                </div>
-            </a>
-            <a href="productview.html">
-                <div class="product-card">
-                    <img src="img/headwear5.png" alt="Headwear5">
-                    <p class="product-name">Autumn Simple Horizon Beanie - Natural</p>
-                    <p class="product-price">Rp370.000</p>
-                </div>
-            </a>
-            <a href="productview.html">
-                <div class="product-card">
-                    <img src="img/headwear6.png" alt="Headwear6">
-                    <p class="product-name">Autumn Select Mini Beanie - Brown Iris</p>
-                    <p class="product-price">Rp370.000</p>
-                </div>
-            </a>
-            <a href="productview.html">
-                <div class="product-card">
-                    <img src="img/headwear7.png" alt="Headwear7">
-                    <p class="product-name">Autumn Select Geo Beanie - Army</p>
-                    <p class="product-price">Rp420.000</p>
-                </div>
-            </a>
-        </div>
-        <h2 class="category-title">Socks</h2>
-        <div class="product-container" id="socks">
-            <a href="productview.html">
-                <div class="product-card">
-                    <img src="img/socks1.png" alt="Socks1">
-                    <p class="product-name">Frog Socks - Charcoal</p>
-                    <p class="product-price">Rp154.000</p>
-                </div>
-            </a>
-            <a href="productview.html">
-                <div class="product-card">
-                    <img src="img/socks2.png" alt="Socks2">
-                    <p class="product-name">Frog Socks - Red/White</p>
-                    <p class="product-price">Rp154.000</p>
-                </div>
-            </a>
-            <a href="productview.html">
-                <div class="product-card">
-                    <img src="img/socks3.png" alt="Socks3">
-                    <p class="product-name">Frog Socks - Green</p>
-                    <p class="product-price">Rp154.000</p>
-                </div>
-            </a>
-            <a href="productview.html">
-                <div class="product-card">
-                    <img src="img/socks5.png" alt="Socks5">
-                    <p class="product-name">Frog Socks - Navy</p>
-                    <p class="product-price">Rp154.000</p>
-                </div>
-            </a>
-            <a href="productview.html">
-                <div class="product-card">
-                    <img src="img/socks6.png" alt="Socks6">
-                    <p class="product-name">Frog Socks - White</p>
-                    <p class="product-price">Rp154.000</p>
-                </div>
-            </a>
-            <a href="productview.html">
-                <div class="product-card">
-                    <img src="img/socks4.png" alt="Socks4">
-                    <p class="product-name">Polar Sad Socks-White</p>
-                    <p class="product-price">Rp185.000</p>
-                </div>
-            </a>
-        </div>
-    </section>
+    <div class="all-conta">
+        <div class="filter-section" id="filtering">
+            <h3>Harga</h3>
+            <input type="text" id="min_price" placeholder="Harga Minimum">
+            <input type="text" id="max_price" placeholder="Harga Maksimum">
+            <h3>Warna</h3>
+            <div class="checkbox-container">
+                <input type="checkbox" id="color-red" value="red"> 
+                <label for="color-red">Red</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="color-yellow" value="yellow"> 
+                <label for="color-yellow">Yellow</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="color-black" value="black"> 
+                <label for="color-black">Black</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="color-gray" value="gray"> 
+                <label for="color-gray">Gray</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="color-beige" value="beige"> 
+                <label for="color-beige">Beige</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="color-green" value="green"> 
+                <label for="color-green">Green</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="color-brown" value="brown"> 
+                <label for="color-brown">Brown</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="color-white" value="white"> 
+                <label for="color-white">White</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="color-blue" value="blue"> 
+                <label for="color-blue">Blue</label>
+            </div>
+            <button onclick="filter()">Apply</button>
+        </div> 
+
+        <section class="product-section">
+            <h2 class="category-title" id="headwear">Headwear</h2>
+            <div class="product-container">
+                <a href="productview.html" class="products" data-color="white,black">
+                    <div class="product-card">
+                        <img src="img/headwear1.png" alt="Headwear">
+                        <p class="product-name">Limosine Cat Hat - White/Black</p>
+                        <p class="product-price">Rp554.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="brown">
+                    <div class="product-card">
+                        <img src="img/headwear2.png" alt="Headwear2">
+                        <p class="product-name">Limosine Cat Hat - Brown</p>
+                        <p class="product-price">Rp554.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="green,white">
+                    <div class="product-card">
+                        <img src="img/headwear3.png" alt="Headwear3">
+                        <p class="product-name">Frog Going With Me? Trucker Hat - Green</p>
+                        <p class="product-price">Rp585.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="black">
+                    <div class="product-card">
+                        <img src="img/headwear4.png" alt="Headwear4">
+                        <p class="product-name">Frog Going With Me? Trucker Hat - Black</p>
+                        <p class="product-price">Rp585.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="beige">
+                    <div class="product-card">
+                        <img src="img/headwear5.png" alt="Headwear5">
+                        <p class="product-name">Autumn Simple Horizon Beanie - Natural</p>
+                        <p class="product-price">Rp370.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="brown">
+                    <div class="product-card">
+                        <img src="img/headwear6.png" alt="Headwear6">
+                        <p class="product-name">Autumn Select Mini Beanie - Brown Iris</p>
+                        <p class="product-price">Rp370.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="blue,brown">
+                    <div class="product-card">
+                        <img src="img/headwear7.png" alt="Headwear7">
+                        <p class="product-name">Autumn Select Geo Beanie - Army</p>
+                        <p class="product-price">Rp420.000</p>
+                    </div>
+                </a>
+            </div>
+            <h2 class="category-title" id="socks">Socks</h2>
+            <div class="product-container">
+                <a href="productview.html" class="products" data-color="gray">
+                    <div class="product-card">
+                        <img src="img/socks1.png" alt="Socks1">
+                        <p class="product-name">Frog Socks - Charcoal</p>
+                        <p class="product-price">Rp154.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="red">
+                    <div class="product-card">
+                        <img src="img/socks2.png" alt="Socks2">
+                        <p class="product-name">Frog Socks - Red/White</p>
+                        <p class="product-price">Rp154.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="green">
+                    <div class="product-card">
+                        <img src="img/socks3.png" alt="Socks3">
+                        <p class="product-name">Frog Socks - Green</p>
+                        <p class="product-price">Rp154.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="blue">
+                    <div class="product-card">
+                        <img src="img/socks5.png" alt="Socks5">
+                        <p class="product-name">Frog Socks - Navy</p>
+                        <p class="product-price">Rp154.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="white">
+                    <div class="product-card">
+                        <img src="img/socks6.png" alt="Socks6" >
+                        <p class="product-name">Frog Socks - White</p>
+                        <p class="product-price">Rp154.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="white">
+                    <div class="product-card">
+                        <img src="img/socks4.png" alt="Socks4">
+                        <p class="product-name">Polar Sad Socks-White</p>
+                        <p class="product-price">Rp185.000</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
     
     <script>
         feather.replace();
