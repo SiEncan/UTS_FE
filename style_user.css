@@ -1,0 +1,136 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /* Mencegah munculnya scrollbar */
+  font-family: 'Arial', sans-serif;
+}
+
+/* Video Background */
+.video-container {
+  position: fixed;
+  /* Pastikan video menempel pada layar */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  /* Lebar penuh viewport */
+  height: 100vh;
+  /* Tinggi penuh viewport */
+  overflow: hidden;
+  z-index: -1;
+  /* Di belakang elemen lainnya */
+}
+
+.bg-video {
+  width: 100%;
+  /* Penuhi lebar elemen video-container */
+  height: 100%;
+  /* Penuhi tinggi elemen video-container */
+  object-fit: cover;
+  /* Isi layar tanpa merusak proporsi */
+  object-position: center;
+  /* Pusatkan video */
+}
+
+/* Login Form Styles */
+.signup-form,
+.login-form {
+  position: relative;
+  z-index: 1;
+  /* Supaya di atas video */
+  max-width: 400px;
+  margin: 10% auto;
+  padding: 30px 25px;
+  background: rgba(255, 255, 255, 0.9);
+  /* Transparan untuk kesan modern */
+  border-radius: 15px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+  /* Bayangan lembut */
+  backdrop-filter: blur(5px);
+  /* Efek blur pada background form */
+}
+
+.signup-form h2,
+.login-form h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.signup-form p,
+.login-form p {
+  font-size: 14px;
+}
+
+.signup-form .form-label,
+.login-form .form-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+}
+
+.signup-form .form-control,
+.login-form .form-control {
+  height: 45px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.signup-form .form-control:focus,
+.login-form .form-control:focus {
+  border-color: rgb(183, 55, 55);
+  box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+}
+
+.custom-btn {
+  background-color: rgb(183, 55, 55);
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.custom-btn:hover {
+  background-color: rgb(132, 27, 27);
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 10px rgba(87, 87, 87, 0.4);
+}
+
+.text-center a {
+  color: rgb(183, 55, 55);
+  font-size: 14px;
+  transition: color 0.3s ease-in-out;
+}
+
+.text-center a:hover {
+  color: rgb(132, 27, 27);
+}
+
+/* Responsive Styles */
+@media (max-width: 576px) {
+  .login-form {
+    width: 90%;
+    margin-top: 15%;
+    /* Sesuaikan margin agar terlihat baik di layar kecil */
+  }
+}

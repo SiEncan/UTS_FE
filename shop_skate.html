@@ -1,56 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skate Shop</title>
     <link href="https://fonts.cdnfonts.com/css/blowbrush" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="styles2.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
-<body>
-    <nav class="navbar">
-        <a href="#" class="logo">U<span>Skate</span></a>
-    
-        <div class="navbar-button">
-            <div class="dropdown">
-                <a href="index.html" class="dropbtn">Home</a>
-            </div>
 
-            <div class="dropdown">
-                <a href="#skate" class="dropbtn" id="skateLink">Skate</a>
-                <div class="dropdown-content" id="skateDropdown">
-                    <a href="shop_skate.html#board">Boards</a>
-                    <a href="shop_skate.html#wheels">Wheels</a>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a href="#" class="logo">U<span>Skate</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between mx-5" id="navbarNav">
+                <div class="navbar-button">
+                    <div class="dropdown">
+                        <a href="index.html" class="dropbtn">Home</a>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Skate
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="shop_skate.html#board">Boards</a></li>
+                            <li><a class="dropdown-item" href="shop_skate.html#wheels">Wheels</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Clothing
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="shop_clothing.html#tops">Tops</a></li>
+                            <li><a class="dropdown-item" href="shop_clothing.html#sweatshirt">Sweatshirt</a></li>
+                            <li><a class="dropdown-item" href="shop_clothing.html#bottoms">Bottoms</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Accessories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="shop_accessories.html#headwear">Headwear</a></li>
+                            <li><a class="dropdown-item" href="shop_accessories.html#socks">Socks</a></li>
+                        </ul>
+                    </div>
+                    <div class="navbar-extra">
+                        <a href="custom.html" id="custom">Custom Your Own Board</a>
+                    </div>
+                    <!-- Ikon profil -->
+                    <div class="dropdown">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i data-feather="user" class="profile-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- Jika belum login -->
+                            <li ng-if="!isLoggedIn">
+                                <a class="dropdown-item" href="signup.html">Sign Up</a>
+                            </li>
+                            <li ng-if="!isLoggedIn">
+                                <a class="dropdown-item" href="login.html">Login</a>
+                            </li>
+                            <!-- Jika sudah login -->
+                            <li ng-if="isLoggedIn">
+                                <span class="dropdown-item disabled">{{ userProfile.name }}</span>
+                            </li>
+                            <li ng-if="isLoggedIn">
+                                <a class="dropdown-item" href="edit_profile.html">Edit Profile</a>
+                            </li>
+                            <li ng-if="isLoggedIn">
+                                <a class="dropdown-item" href="#" ng-click="logout()">Logout</a>
+                            </li>
+                            <li ng-if="isLoggedIn">
+                                <a class="dropdown-item text-danger" href="#" ng-click="deleteProfile()">Delete
+                                    Profile</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-    
-            <div class="dropdown">
-                <a href="#clothing" class="dropbtn" id="clothingLink">Clothing</a>
-                <div class="dropdown-content" id="clothingDropdown">
-                    <a href="shop_clothing.html#tops">Tops</a>
-                    <a href="shop_clothing.html#sweatshirt">Sweatshirt</a>
-                    <a href="shop_clothing.html#bottoms">Bottoms</a>
-                </div>
-            </div>
-    
-            <div class="dropdown">
-                <a href="#accessories" class="dropbtn" id="accessoriesLink">Accessories</a>
-                <div class="dropdown-content" id="accessoriesDropdown">
-                    <a href="shop_accessories.html#headwear">Headwear</a>
-                    <a href="shop_accessories.html#socks">Socks</a>
+                <div class="search-bar-class">
+                    <i data-feather="search" id="searchIcon" class="search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search product" class="search-bar"
+                        ng-model="searchQuery">
                 </div>
             </div>
         </div>
-    
-        <div class="navbar-extra">
-            <a href="custom.html" id="custom">Custom Your Own Board</a>
-        </div>
-        <div class="search-bar-class">
-            <i data-feather="search" id="searchIcon" class="search-icon"></i>
-            <input type="text" id="searchInput" placeholder="Search product.." class="search-bar">
-        </div>
-        <a href="#" id="menu"><i data-feather="menu"></i></a>
     </nav>
 
     <div class="all-conta">
@@ -60,121 +107,177 @@
             <input type="text" id="max_price" placeholder="Harga Maksimum">
             <h3>Warna</h3>
             <div class="checkbox-container">
-                <input type="checkbox" id="color-red" value="red"> 
+                <input type="checkbox" id="color-red" value="red">
                 <label for="color-red">Red</label>
             </div>
             <div class="checkbox-container">
-                <input type="checkbox" id="color-yellow" value="yellow"> 
+                <input type="checkbox" id="color-yellow" value="yellow">
                 <label for="color-yellow">Yellow</label>
             </div>
             <div class="checkbox-container">
-                <input type="checkbox" id="color-black" value="black"> 
+                <input type="checkbox" id="color-black" value="black">
                 <label for="color-black">Black</label>
             </div>
             <div class="checkbox-container">
-                <input type="checkbox" id="color-gray" value="gray"> 
+                <input type="checkbox" id="color-gray" value="gray">
                 <label for="color-gray">Gray</label>
             </div>
             <div class="checkbox-container">
-                <input type="checkbox" id="color-beige" value="beige"> 
+                <input type="checkbox" id="color-beige" value="beige">
                 <label for="color-beige">Beige</label>
             </div>
             <div class="checkbox-container">
-                <input type="checkbox" id="color-purple" value="purple"> 
+                <input type="checkbox" id="color-purple" value="purple">
                 <label for="color-purple">Purple</label>
             </div>
             <div class="checkbox-container">
-                <input type="checkbox" id="color-orange" value="orange"> 
+                <input type="checkbox" id="color-orange" value="orange">
                 <label for="color-orange">Orange</label>
             </div>
             <div class="checkbox-container">
-                <input type="checkbox" id="color-green" value="green"> 
+                <input type="checkbox" id="color-green" value="green">
                 <label for="color-green">Green</label>
             </div>
             <div class="checkbox-container">
-                <input type="checkbox" id="color-brown" value="brown"> 
+                <input type="checkbox" id="color-brown" value="brown">
                 <label for="color-brown">Brown</label>
             </div>
             <div class="checkbox-container">
-                <input type="checkbox" id="color-white" value="white"> 
+                <input type="checkbox" id="color-white" value="white">
                 <label for="color-white">White</label>
             </div>
             <div class="checkbox-container">
-                <input type="checkbox" id="color-blue" value="blue"> 
+                <input type="checkbox" id="color-blue" value="blue">
                 <label for="color-blue">Blue</label>
             </div>
             <button onclick="filter()">Apply</button>
-        </div> 
+        </div>
 
         <section class="product-section">
             <h2 class="category-title">Boards</h2>
             <div class="product-container" id="board">
                 <a href="productview.html" class="products" data-color="orange">
-                    <div class="product-card">
+                    <div class="product-card" id="board1">
                         <img src="img/skateboard1.png" alt="Skateboard 1">
                         <p class="product-name">GX1000 Looking Out Deck - 8.75</p>
                         <p class="product-price">Rp1.190.000</p>
                     </div>
                 </a>
                 <a href="productview.html" class="products" data-color="yellow,white,red">
-                    <div class="product-card">
+                    <div class="product-card" id="board2">
                         <img src="img/skateboard2.png" alt="Skateboard 2">
                         <p class="product-name">Quasi Erased Deck - 8.125</p>
                         <p class="product-price">Rp1.590.000</p>
                     </div>
                 </a>
                 <a href="productview.html" class="products" data-color="black,white">
-                    <div class="product-card">
+                    <div class="product-card" id="board3">
                         <img src="img/skateboard3.png" alt="Skateboard 3">
                         <p class="product-name">Baker Tyson Orange Tree Deck - 8.5</p>
                         <p class="product-price">Rp2.159.000</p>
                     </div>
                 </a>
                 <a href="productview.html" class="products" data-color="yellow,blue">
-                    <div class="product-card">
+                    <div class="product-card" id="board4">
                         <img src="img/skateboard4.png" alt="Skateboard 1">
                         <p class="product-name">Heroin Swampy's Wide Boy Deck - 10.75</p>
                         <p class="product-price">Rp1.190.000</p>
                     </div>
                 </a>
                 <a href="productview.html" class="products" data-color="black,red">
-                    <div class="product-card">
+                    <div class="product-card" id="board5">
                         <img src="img/skateboard5.png" alt="Skateboard 2">
                         <p class="product-name">Anti-Hero Classic Eagle Deck - 8.5</p>
                         <p class="product-price">Rp1.590.000</p>
                     </div>
                 </a>
                 <a href="productview.html" class="products" data-color="orange,black">
-                    <div class="product-card">
+                    <div class="product-card" id="board6">
                         <img src="img/skateboard6.png" alt="Skateboard 3">
                         <p class="product-name">Taylor Artificial Ingredients Deck - 8.5</p>
                         <p class="product-price">Rp2.159.000</p>
                     </div>
                 </a>
-                <a href="productview.html" class="products"  data-color="blue,brown">
-                    <div class="product-card">
+                <a href="productview.html" class="products" data-color="blue,brown">
+                    <div class="product-card" id="board7">
                         <img src="img/skateboard7.png" alt="Skateboard 1">
                         <p class="product-name">Anderson Just Caus Deck - 8.38</p>
                         <p class="product-price">Rp1.190.000</p>
                     </div>
                 </a>
                 <a href="productview.html" class="products" data-color="blue">
-                    <div class="product-card">
+                    <div class="product-card" id="board8">
                         <img src="img/skateboard8.png" alt="Skateboard 2">
                         <p class="product-name">Sandoval Racecar Deck - 9.02</p>
                         <p class="product-price">Rp1.590.000</p>
                     </div>
                 </a>
                 <a href="productview.html" class="products" data-color="green">
-                    <div class="product-card">
+                    <div class="product-card" id="board9">
                         <img src="img/skateboard9.png" alt="Skateboard 3">
                         <p class="product-name">Krooked Gottwig RA Deck - 8.38</p>
                         <p class="product-price">Rp2.159.000</p>
                     </div>
                 </a>
                 <a href="productview.html" class="products" data-color="yellow">
-                    <div class="product-card">
+                    <div class="product-card" id="board10">
                         <img src="img/skateboard10.png" alt="Skateboard 1">
+                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
+                        <p class="product-price">Rp1.190.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="black,white">
+                    <div class="product-card" id="board11">
+                        <img src="img/skate1.png" alt="Skateboard 2">
+                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
+                        <p class="product-price">Rp1.190.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="green">
+                    <div class="product-card" id="board12">
+                        <img src="img/skate2.png" alt="Skateboard 3">
+                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
+                        <p class="product-price">Rp1.190.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="black,yellow">
+                    <div class="product-card" id="board13">
+                        <img src="img/skate3.png" alt="Skateboard 1">
+                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
+                        <p class="product-price">Rp1.190.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="grey,blue">
+                    <div class="product-card" id="board14">
+                        <img src="img/skate4.png" alt="Skateboard 2">
+                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
+                        <p class="product-price">Rp1.190.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="black,yellow">
+                    <div class="product-card" id="board15">
+                        <img src="img/skate5.png" alt="Skateboard 3">
+                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
+                        <p class="product-price">Rp1.190.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="grey">
+                    <div class="product-card" id="board16">
+                        <img src="img/skate6.png" alt="Skateboard 1">
+                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
+                        <p class="product-price">Rp1.190.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="black,red">
+                    <div class="product-card" id="board17">
+                        <img src="img/skate8.png" alt="Skateboard 2">
+                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
+                        <p class="product-price">Rp1.190.000</p>
+                    </div>
+                </a>
+                <a href="productview.html" class="products" data-color="grey,blue">
+                    <div class="product-card" id="board18">
+                        <img src="img/skate9.png" alt="Skateboard 3">
                         <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
                         <p class="product-price">Rp1.190.000</p>
                     </div>
@@ -241,10 +344,12 @@
             </div>
         </section>
     </div>
-    
+
     <script>
         feather.replace();
     </script>
     <script src="style.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

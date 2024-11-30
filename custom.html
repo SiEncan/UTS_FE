@@ -1,13 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Skateboard Builder</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Skate Shop</title>
+    <link href="https://fonts.cdnfonts.com/css/blowbrush" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="styles4.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
+
 <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a href="#" class="logo">U<span>Skate</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between mx-5" id="navbarNav">
+                <div class="navbar-button">
+                    <div class="dropdown">
+                        <a href="index.html" class="dropbtn">Home</a>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Skate
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="shop_skate.html#board">Boards</a></li>
+                            <li><a class="dropdown-item" href="shop_skate.html#wheels">Wheels</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Clothing
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="shop_clothing.html#tops">Tops</a></li>
+                            <li><a class="dropdown-item" href="shop_clothing.html#sweatshirt">Sweatshirt</a></li>
+                            <li><a class="dropdown-item" href="shop_clothing.html#bottoms">Bottoms</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Accessories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="shop_accessories.html#headwear">Headwear</a></li>
+                            <li><a class="dropdown-item" href="shop_accessories.html#socks">Socks</a></li>
+                        </ul>
+                    </div>
+                    <div class="navbar-extra">
+                        <a href="custom.html" id="custom">Custom Your Own Board</a>
+                    </div>
+                    <!-- Ikon profil -->
+                    <div class="dropdown">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i data-feather="user" class="profile-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- Jika belum login -->
+                            <li ng-if="!isLoggedIn">
+                                <a class="dropdown-item" href="signup.html">Sign Up</a>
+                            </li>
+                            <li ng-if="!isLoggedIn">
+                                <a class="dropdown-item" href="login.html">Login</a>
+                            </li>
+                            <!-- Jika sudah login -->
+                            <li ng-if="isLoggedIn">
+                                <span class="dropdown-item disabled">{{ userProfile.name }}</span>
+                            </li>
+                            <li ng-if="isLoggedIn">
+                                <a class="dropdown-item" href="edit_profile.html">Edit Profile</a>
+                            </li>
+                            <li ng-if="isLoggedIn">
+                                <a class="dropdown-item" href="#" ng-click="logout()">Logout</a>
+                            </li>
+                            <li ng-if="isLoggedIn">
+                                <a class="dropdown-item text-danger" href="#" ng-click="deleteProfile()">Delete
+                                    Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="search-bar-class">
+                    <i data-feather="search" id="searchIcon" class="search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search product" class="search-bar"
+                        ng-model="searchQuery">
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <div class="builder-container">
         <div class="preview">
             <div class="preview-content">
@@ -60,127 +152,127 @@
             </div>
             <button id="checkoutButton" onclick="goToCheckout()" disabled>Proceed to Checkout</button>
         </div>
-        
-    <!-- Template for all modals -->
-    <template id="modal-template">
-        <div class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Select <span class="component-type"></span></h2>
-                <div class="product-grid"></div>
+
+        <!-- Template for all modals -->
+        <template id="modal-template">
+            <div class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Select <span class="component-type"></span></h2>
+                    <div class="product-grid"></div>
+                </div>
             </div>
-        </div>
-    </template>
+        </template>
 
-    <script>
-        const components = ['deck', 'trucks', 'wheels', 'bearings', 'griptape'];
-        const selections = {
-            deck: null,
-            trucks: null,
-            wheels: null,
-            bearings: null,
-            griptape: null
-        };
-
-        function formatRupiah(value) {
-        return 'Rp ' + value.toLocaleString('id-ID', { minimumFractionDigits: 0 });
-    }
-
-        const generateProducts = (type) => {
-            const products = [];
-            const brands = ['Element', 'Verb', 'KFD', 'Plan B', 'Zero', 'Toy Machine', 'Santa Cruz', 'Powell Peralta', 'Blind', 'Blueprint'];
-            
-            const images = {
-                deck: {
-                    'Element': 'img/deck/elementdeck.png',
-                    'Verb': 'img/deck/verbdeck.png',
-                    'KFD': 'img/deck/kfddeck.png',
-                    'Plan B': 'img/deck/planbdeck.png',
-                    'Zero': 'img/deck/zerodeck.png',
-                    'Toy Machine': 'img/deck/toymachinedeck.png',
-                    'Santa Cruz': 'img/deck/santacruzdeck.png',
-                    'Powell Peralta': 'img/deck/powellperaltadeck.png',
-                    'Blind': 'img/deck/blinddeck.png',
-                    'Blueprint': 'img/deck/blueprintdeck.png'
-                },
-                trucks: {
-                    'Element': 'img/trucks/elementtrucks.png',
-                    'Verb': 'img/trucks/hydroholltrucks.png',
-                    'KFD': 'img/trucks/hydroponictrucks.png',
-                    'Plan B': 'img/trucks/ironhightrucks.png',
-                    'Zero': 'img/trucks/pivottrucks.png',
-                    'Toy Machine': 'img/trucks/pivotwraptrucks.png',
-                    'Santa Cruz': 'img/trucks/tensoralumtrucks.png',
-                    'Powell Peralta': 'img/trucks/tensormagtrucks.png',
-                    'Blind': 'img/trucks/thunderholltrucks.png',
-                    'Blueprint': 'img/trucks/venturetrucks.png'
-                },
-                wheels: {
-                    'Element': 'img/wheels/1.png',
-                    'Verb': 'img/wheels/2.png',
-                    'KFD': 'img/wheels/kfd.png',
-                    'Plan B': 'img/wheels/3.png',
-                    'Zero': 'img/wheels/4.png',
-                    'Toy Machine': 'img/wheels/5.png',
-                    'Santa Cruz': 'img/wheels/6.png',
-                    'Powell Peralta': 'img/wheels/7.png',
-                    'Blind': 'img/wheels/8.png',
-                    'Blueprint': 'img/wheels/9.png'
-                },
-                bearings: {
-                    'Element': 'img/bearings/1.png',
-                    'Verb': 'img/bearings/2.png',
-                    'KFD': 'img/bearings/3.png',
-                    'Plan B': 'img/bearings/4.png',
-                    'Zero': 'img/bearings/5.png',
-                    'Toy Machine': 'img/bearings/6.png',
-                    'Santa Cruz': 'img/bearings/7.png',
-                    'Powell Peralta': 'img/bearings/8.png',
-                    'Blind': 'img/bearings/9.png',
-                    'Blueprint': 'img/bearings/10.png'
-                },
-                griptape: {
-                    'Element': 'img/griptape/1.png',
-                    'Verb': 'img/griptape/2.png',
-                    'KFD': 'img/griptape/3.png',
-                    'Plan B': 'img/griptape/4.png',
-                    'Zero': 'img/griptape/5.png',
-                    'Toy Machine': 'img/griptape/6.png',
-                    'Santa Cruz': 'img/griptape/7.png',
-                    'Powell Peralta': 'img/griptape/8.png',
-                    'Blind': 'img/griptape/9.png',
-                    'Blueprint': 'img/griptape/10.png' 
-                }
+        <script>
+            const components = ['deck', 'trucks', 'wheels', 'bearings', 'griptape'];
+            const selections = {
+                deck: null,
+                trucks: null,
+                wheels: null,
+                bearings: null,
+                griptape: null
             };
-    
-            for (let i = 0; i < brands.length; i++) {
-            const price = (Math.random() * 500000 + 200000).toFixed(0);  
-            const originalPrice = (parseFloat(price) * 1.2).toFixed(0);
-            const discount = ((1 - (price / originalPrice)) * 100).toFixed(0);
-            products.push({
-                name: `${brands[i]} ${type.charAt(0).toUpperCase() + type.slice(1)}`,
-                price: parseFloat(price),
-                originalPrice: parseFloat(originalPrice),
-                discount: parseInt(discount),
-                image: images[type][brands[i]]
-            });
-        }
-        return products;
-    };
 
-        components.forEach(component => {
-        const template = document.getElementById('modal-template').content.cloneNode(true);
-        const modal = template.querySelector('.modal');
-        modal.id = `${component}Modal`;
-        modal.querySelector('.component-type').textContent = component.charAt(0).toUpperCase() + component.slice(1);
+            function formatRupiah(value) {
+                return 'Rp ' + value.toLocaleString('id-ID', { minimumFractionDigits: 0 });
+            }
 
-        const productGrid = modal.querySelector('.product-grid');
-        const products = generateProducts(component);
+            const generateProducts = (type) => {
+                const products = [];
+                const brands = ['Element', 'Verb', 'KFD', 'Plan B', 'Zero', 'Toy Machine', 'Santa Cruz', 'Powell Peralta', 'Blind', 'Blueprint'];
 
-        products.forEach(product => {
-            const productCard = document.createElement('div');
-            productCard.className = 'product-card';
-            productCard.innerHTML = `
+                const images = {
+                    deck: {
+                        'Element': 'img/deck/elementdeck.png',
+                        'Verb': 'img/deck/verbdeck.png',
+                        'KFD': 'img/deck/kfddeck.png',
+                        'Plan B': 'img/deck/planbdeck.png',
+                        'Zero': 'img/deck/zerodeck.png',
+                        'Toy Machine': 'img/deck/toymachinedeck.png',
+                        'Santa Cruz': 'img/deck/santacruzdeck.png',
+                        'Powell Peralta': 'img/deck/powellperaltadeck.png',
+                        'Blind': 'img/deck/blinddeck.png',
+                        'Blueprint': 'img/deck/blueprintdeck.png'
+                    },
+                    trucks: {
+                        'Element': 'img/trucks/elementtrucks.png',
+                        'Verb': 'img/trucks/hydroholltrucks.png',
+                        'KFD': 'img/trucks/hydroponictrucks.png',
+                        'Plan B': 'img/trucks/ironhightrucks.png',
+                        'Zero': 'img/trucks/pivottrucks.png',
+                        'Toy Machine': 'img/trucks/pivotwraptrucks.png',
+                        'Santa Cruz': 'img/trucks/tensoralumtrucks.png',
+                        'Powell Peralta': 'img/trucks/tensormagtrucks.png',
+                        'Blind': 'img/trucks/thunderholltrucks.png',
+                        'Blueprint': 'img/trucks/venturetrucks.png'
+                    },
+                    wheels: {
+                        'Element': 'img/wheels/1.png',
+                        'Verb': 'img/wheels/2.png',
+                        'KFD': 'img/wheels/kfd.png',
+                        'Plan B': 'img/wheels/3.png',
+                        'Zero': 'img/wheels/4.png',
+                        'Toy Machine': 'img/wheels/5.png',
+                        'Santa Cruz': 'img/wheels/6.png',
+                        'Powell Peralta': 'img/wheels/7.png',
+                        'Blind': 'img/wheels/8.png',
+                        'Blueprint': 'img/wheels/9.png'
+                    },
+                    bearings: {
+                        'Element': 'img/bearings/1.png',
+                        'Verb': 'img/bearings/2.png',
+                        'KFD': 'img/bearings/3.png',
+                        'Plan B': 'img/bearings/4.png',
+                        'Zero': 'img/bearings/5.png',
+                        'Toy Machine': 'img/bearings/6.png',
+                        'Santa Cruz': 'img/bearings/7.png',
+                        'Powell Peralta': 'img/bearings/8.png',
+                        'Blind': 'img/bearings/9.png',
+                        'Blueprint': 'img/bearings/10.png'
+                    },
+                    griptape: {
+                        'Element': 'img/griptape/1.png',
+                        'Verb': 'img/griptape/2.png',
+                        'KFD': 'img/griptape/3.png',
+                        'Plan B': 'img/griptape/4.png',
+                        'Zero': 'img/griptape/5.png',
+                        'Toy Machine': 'img/griptape/6.png',
+                        'Santa Cruz': 'img/griptape/7.png',
+                        'Powell Peralta': 'img/griptape/8.png',
+                        'Blind': 'img/griptape/9.png',
+                        'Blueprint': 'img/griptape/10.png'
+                    }
+                };
+
+                for (let i = 0; i < brands.length; i++) {
+                    const price = (Math.random() * 500000 + 200000).toFixed(0);
+                    const originalPrice = (parseFloat(price) * 1.2).toFixed(0);
+                    const discount = ((1 - (price / originalPrice)) * 100).toFixed(0);
+                    products.push({
+                        name: `${brands[i]} ${type.charAt(0).toUpperCase() + type.slice(1)}`,
+                        price: parseFloat(price),
+                        originalPrice: parseFloat(originalPrice),
+                        discount: parseInt(discount),
+                        image: images[type][brands[i]]
+                    });
+                }
+                return products;
+            };
+
+            components.forEach(component => {
+                const template = document.getElementById('modal-template').content.cloneNode(true);
+                const modal = template.querySelector('.modal');
+                modal.id = `${component}Modal`;
+                modal.querySelector('.component-type').textContent = component.charAt(0).toUpperCase() + component.slice(1);
+
+                const productGrid = modal.querySelector('.product-grid');
+                const products = generateProducts(component);
+
+                products.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.innerHTML = `
                 <img src="${product.image}" alt="${product.name}">
                 <h3>${product.name}</h3>
                 <p class="price">${formatRupiah(product.price)}</p>
@@ -188,147 +280,149 @@
                 <p class="discount">Save ${product.discount}%</p>
                 <button class="add-btn" onclick="selectProduct('${component}', '${product.name}', ${product.price})">Add</button>
             `;
-            productGrid.appendChild(productCard);
-        });
-
-        document.body.appendChild(template);
-    });
-
-        function selectProduct(component, productName, price) {
-            selections[component] = { name: productName, price: price };
-            document.getElementById(`${component}-selection`).textContent = `${productName} - $${price.toFixed(2)}`;
-            document.getElementById(`${component}Modal`).style.display = 'none';
-            
-            updateUIState();
-            updateTotalPrice();
-        }
-
-        function updateTotalPrice() {
-        const total = Object.values(selections).reduce((sum, item) => sum + (item ? item.price : 0), 0);
-        const totalPriceElement = document.getElementById('total-price');
-        if (totalPriceElement) {
-            totalPriceElement.textContent = `Total: ${formatRupiah(total)}`;
-        } else {
-            const totalPriceDiv = document.createElement('div');
-            totalPriceDiv.id = 'total-price';
-            totalPriceDiv.textContent = `Total: ${formatRupiah(total)}`;
-            document.querySelector('.builder-container').appendChild(totalPriceDiv);
-        }
-    }
-
-        function resetBuilder() {
-            if (confirm('Are you sure you want to reset all your selections?')) {
-                Object.keys(selections).forEach(key => {
-                    selections[key] = null;
-                    document.getElementById(`${key}-selection`).textContent = 'Please select';
+                    productGrid.appendChild(productCard);
                 });
-                
+
+                document.body.appendChild(template);
+            });
+
+            function selectProduct(component, productName, price) {
+                selections[component] = { name: productName, price: price };
+                document.getElementById(`${component}-selection`).textContent = `${productName} - $${price.toFixed(2)}`;
+                document.getElementById(`${component}Modal`).style.display = 'none';
+
+                updateUIState();
+                updateTotalPrice();
+            }
+
+            function updateTotalPrice() {
+                const total = Object.values(selections).reduce((sum, item) => sum + (item ? item.price : 0), 0);
+                const totalPriceElement = document.getElementById('total-price');
+                if (totalPriceElement) {
+                    totalPriceElement.textContent = `Total: ${formatRupiah(total)}`;
+                } else {
+                    const totalPriceDiv = document.createElement('div');
+                    totalPriceDiv.id = 'total-price';
+                    totalPriceDiv.textContent = `Total: ${formatRupiah(total)}`;
+                    document.querySelector('.builder-container').appendChild(totalPriceDiv);
+                }
+            }
+
+            function resetBuilder() {
+                if (confirm('Are you sure you want to reset all your selections?')) {
+                    Object.keys(selections).forEach(key => {
+                        selections[key] = null;
+                        document.getElementById(`${key}-selection`).textContent = 'Please select';
+                    });
+
+                    updateUIState();
+                }
+            }
+
+            function canSelectComponent(component) {
+                const index = components.indexOf(component);
+                if (index === 0) return true;
+                return selections[components[index - 1]] !== null;
+            }
+
+            function tryOpenModal(component) {
+                if (canSelectComponent(component)) {
+                    openModal(component);
+                } else {
+                    showTooltip(component);
+                }
+            }
+
+            function showTooltip(component) {
+                const card = document.querySelector(`.option-card:nth-child(${components.indexOf(component) + 1})`);
+                const tooltip = card.querySelector('.tooltip');
+                tooltip.style.display = 'block';
+                setTimeout(() => {
+                    tooltip.style.display = 'none';
+                }, 2000);
+            }
+
+            function openModal(type) {
+                document.getElementById(type + 'Modal').style.display = 'block';
+            }
+
+            function selectProduct(component, productName) {
+                selections[component] = productName;
+                document.getElementById(`${component}-selection`).textContent = productName;
+                document.getElementById(`${component}Modal`).style.display = 'none';
+
                 updateUIState();
             }
-        }
 
-        function canSelectComponent(component) {
-            const index = components.indexOf(component);
-            if (index === 0) return true;
-            return selections[components[index - 1]] !== null;
-        }
-
-        function tryOpenModal(component) {
-            if (canSelectComponent(component)) {
-                openModal(component);
-            } else {
-                showTooltip(component);
+            function updateUIState() {
+                components.forEach((component, index) => {
+                    const card = document.querySelector(`.option-card:nth-child(${index + 1})`);
+                    if (canSelectComponent(component)) {
+                        card.classList.remove('disabled');
+                    } else {
+                        card.classList.add('disabled');
+                    }
+                });
             }
-        }
 
-        function showTooltip(component) {
-            const card = document.querySelector(`.option-card:nth-child(${components.indexOf(component) + 1})`);
-            const tooltip = card.querySelector('.tooltip');
-            tooltip.style.display = 'block';
-            setTimeout(() => {
-                tooltip.style.display = 'none';
-            }, 2000);
-        }
+            function selectProduct(component, productName, price) {
+                selections[component] = { name: productName, price: price };
+                document.getElementById(`${component}-selection`).textContent = `${productName} - ${formatRupiah(price)}`;
+                document.getElementById(`${component}Modal`).style.display = 'none';
 
-        function openModal(type) {
-            document.getElementById(type + 'Modal').style.display = 'block';
-        }
+                updateUIState();
+                updateTotalPrice();
+                checkAllComponentsSelected();
+            }
 
-        function selectProduct(component, productName) {
-            selections[component] = productName;
-            document.getElementById(`${component}-selection`).textContent = productName;
-            document.getElementById(`${component}Modal`).style.display = 'none';
-            
-            updateUIState();
-        }
-
-        function updateUIState() {
-            components.forEach((component, index) => {
-                const card = document.querySelector(`.option-card:nth-child(${index + 1})`);
-                if (canSelectComponent(component)) {
-                    card.classList.remove('disabled');
+            function updateTotalPrice() {
+                const total = Object.values(selections).reduce((sum, item) => sum + (item ? item.price : 0), 0);
+                const totalPriceElement = document.getElementById('total-price');
+                if (totalPriceElement) {
+                    totalPriceElement.textContent = `Total: ${formatRupiah(total)}`;
                 } else {
-                    card.classList.add('disabled');
+                    const totalPriceDiv = document.createElement('div');
+                    totalPriceDiv.id = 'total-price';
+                    totalPriceDiv.textContent = `Total: ${formatRupiah(total)}`;
+                    document.querySelector('.builder-container').appendChild(totalPriceDiv);
+                }
+            }
+
+            function checkAllComponentsSelected() {
+                const allSelected = Object.values(selections).every(item => item !== null);
+                const checkoutButton = document.getElementById('checkoutButton');
+                checkoutButton.style.display = allSelected ? 'block' : 'none';
+                checkoutButton.disabled = !allSelected;
+            }
+
+            function saveSelectionsToLocalStorage() {
+                Object.entries(selections).forEach(([key, value]) => {
+                    localStorage.setItem(`selected_${key}`, JSON.stringify(value));
+                });
+                const total = Object.values(selections).reduce((sum, item) => sum + (item ? item.price : 0), 0);
+                localStorage.setItem('subtotal', total.toString());
+            }
+
+            function goToCheckout() {
+                saveSelectionsToLocalStorage();
+                window.location.href = 'checkout.html';
+            }
+
+            document.querySelectorAll('.close').forEach(closeBtn => {
+                closeBtn.onclick = function () {
+                    this.closest('.modal').style.display = 'none';
                 }
             });
-        }
 
-        function selectProduct(component, productName, price) {
-            selections[component] = { name: productName, price: price };
-            document.getElementById(`${component}-selection`).textContent = `${productName} - ${formatRupiah(price)}`;
-            document.getElementById(`${component}Modal`).style.display = 'none';
-            
+            window.onclick = function (event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.style.display = 'none';
+                }
+            }
+
             updateUIState();
-            updateTotalPrice();
-            checkAllComponentsSelected();
-        }
-
-        function updateTotalPrice() {
-            const total = Object.values(selections).reduce((sum, item) => sum + (item ? item.price : 0), 0);
-            const totalPriceElement = document.getElementById('total-price');
-            if (totalPriceElement) {
-                totalPriceElement.textContent = `Total: ${formatRupiah(total)}`;
-            } else {
-                const totalPriceDiv = document.createElement('div');
-                totalPriceDiv.id = 'total-price';
-                totalPriceDiv.textContent = `Total: ${formatRupiah(total)}`;
-                document.querySelector('.builder-container').appendChild(totalPriceDiv);
-            }
-        }
-
-        function checkAllComponentsSelected() {
-            const allSelected = Object.values(selections).every(item => item !== null);
-            const checkoutButton = document.getElementById('checkoutButton');
-            checkoutButton.style.display = allSelected ? 'block' : 'none';
-            checkoutButton.disabled = !allSelected;
-        }
-
-        function saveSelectionsToLocalStorage() {
-            Object.entries(selections).forEach(([key, value]) => {
-                localStorage.setItem(`selected_${key}`, JSON.stringify(value));
-            });
-            const total = Object.values(selections).reduce((sum, item) => sum + (item ? item.price : 0), 0);
-            localStorage.setItem('subtotal', total.toString());
-        }
-
-        function goToCheckout() {
-            saveSelectionsToLocalStorage();
-            window.location.href = 'checkout.html';
-        }
-
-        document.querySelectorAll('.close').forEach(closeBtn => {
-            closeBtn.onclick = function() {
-                this.closest('.modal').style.display = 'none';
-            }
-        });
-
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-            }
-        }
-
-        updateUIState();
-    </script>
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

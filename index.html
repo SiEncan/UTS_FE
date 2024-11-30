@@ -1,99 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="uskateApp">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>USkate - Skateboard Store</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link href="styles.css" rel="stylesheet">
+    <!-- Font and Icons -->
     <link href="https://fonts.cdnfonts.com/css/blowbrush" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="styles.css">
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
+
 <body>
-    <nav class="navbar">
-        <a href="#" class="logo">U<span>Skate</span></a>
-    
-        <div class="navbar-button">
-            <div class="dropdown">
-                <a href="index.html" class="dropbtn">Home</a>
-            </div>
-
-            <div class="dropdown">
-                <a href="#skate" class="dropbtn" id="skateLink">Skate</a>
-                <div class="dropdown-content" id="skateDropdown">
-                    <a href="shop_skate.html#board">Boards</a>
-                    <a href="shop_skate.html#wheels">Wheels</a>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a href="#" class="logo">U<span>Skate</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between mx-5" id="navbarNav">
+                <div class="navbar-button">
+                    <div class="dropdown">
+                        <a href="index.html" class="dropbtn">Home</a>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Skate
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="shop_skate.html#board">Boards</a></li>
+                            <li><a class="dropdown-item" href="shop_skate.html#wheels">Wheels</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Clothing
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="shop_clothing.html#tops">Tops</a></li>
+                            <li><a class="dropdown-item" href="shop_clothing.html#sweatshirt">Sweatshirt</a></li>
+                            <li><a class="dropdown-item" href="shop_clothing.html#bottoms">Bottoms</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Accessories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="shop_accessories.html#headwear">Headwear</a></li>
+                            <li><a class="dropdown-item" href="shop_accessories.html#socks">Socks</a></li>
+                        </ul>
+                    </div>
+                    <div class="navbar-extra">
+                        <a href="custom.html" id="custom">Custom Your Own Board</a>
+                    </div>
+                    <!-- Ikon profil -->
+                    <div class="dropdown">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i data-feather="user" class="profile-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- Jika belum login -->
+                            <li ng-if="!isLoggedIn">
+                                <a class="dropdown-item" href="signup.html">Sign Up</a>
+                            </li>
+                            <li ng-if="!isLoggedIn">
+                                <a class="dropdown-item" href="login.html">Login</a>
+                            </li>
+                            <!-- Jika sudah login -->
+                            <li ng-if="isLoggedIn">
+                                <span class="dropdown-item disabled">{{ userProfile.name }}</span>
+                            </li>
+                            <li ng-if="isLoggedIn">
+                                <a class="dropdown-item" href="edit_profile.html">Edit Profile</a>
+                            </li>
+                            <li ng-if="isLoggedIn">
+                                <a class="dropdown-item" href="#" ng-click="logout()">Logout</a>
+                            </li>
+                            <li ng-if="isLoggedIn">
+                                <a class="dropdown-item text-danger" href="#" ng-click="deleteProfile()">Delete
+                                    Profile</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-    
-            <div class="dropdown">
-                <a href="#clothing" class="dropbtn" id="clothingLink">Clothing</a>
-                <div class="dropdown-content" id="clothingDropdown">
-                    <a href="shop_clothing.html#tops">Tops</a>
-                    <a href="shop_clothing.html#sweatshirt">Sweatshirt</a>
-                    <a href="shop_clothing.html#bottoms">Bottoms</a>
-                </div>
-            </div>
-    
-            <div class="dropdown">
-                <a href="#accessories" class="dropbtn" id="accessoriesLink">Accessories</a>
-                <div class="dropdown-content" id="accessoriesDropdown">
-                    <a href="shop_accessories.html#headwear">Headwear</a>
-                    <a href="shop_accessories.html#socks">Socks</a>
+                <div class="search-bar-class">
+                    <i data-feather="search" id="searchIcon" class="search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search product" class="search-bar"
+                        ng-model="searchQuery">
                 </div>
             </div>
         </div>
-    
-        <div class="navbar-extra">
-            <a href="custom.html" id="custom">Custom Your Own Board</a>
-        </div>
-        <div class="search-bar-class">
-            <i data-feather="search" id="searchIcon" class="search-icon"></i>
-            <input type="text" id="searchInput" placeholder="Search product.." class="search-bar">
-        </div>
-        <a href="#" id="menu"><i data-feather="menu"></i></a>
-    </nav>    
+    </nav>
 
-    <script>
-        feather.replace();  
-    </script>
-
-    <!-- Hero Section start -->
-    <section class="hero" id="home">
+    <!-- Hero Section -->
+    <section class="hero" id="home" ng-controller="HomeController">
         <div class="board">
-            <a href="shop.html"></a>
-                <img src="img/skate1.png" alt="skate1" class="skate">
-            </a>
-            <a href="shop.html">
-                <img src="img/skate2.png" alt="skate2" class="skate">
-            </a>
-            <a href="shop.html">
-                <img src="img/skate3.png" alt="skate3" class="skate">
-            </a>
-            <a href="shop.html">
-                <img src="img/skate4.png" alt="skate4" class="skate">
-            </a>
-            <a href="shop.html">
-                <img src="img/skate5.png" alt="skate5" class="skate">
-            </a>
-            <a href="shop.html">
-                <img src="img/skate6.png" alt="skate6" class="skate">
-            </a>
-            <a href="shop.html">
-                <img src="img/skate7.png" alt="skate7" class="skate">
-            </a>
-            <a href="shop.html">
-                <img src="img/skate8.png" alt="skate8" class="skate">
-            </a>
-            <a href="shop.html">
-                <img src="img/skate9.png" alt="skate9" class="skate">
-            </a>
-            <a href="shop.html">
-                <img src="img/skate10.png" alt="skate10" class="skate">
-            </a>
+            <div ng-repeat="skate in skates | filter:searchQuery">
+                <a href="{{ skate.link }}">
+                    <img ng-src="{{ skate.image }}" alt="{{ skate.name }}" class="skate">
+                </a>
+            </div>
         </div>
     </section>
 
-    <script src="style.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="home_app.js"></script>
+    <script>
+        feather.replace();
+    </script>
 </body>
+
 </html>

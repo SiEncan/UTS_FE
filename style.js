@@ -3,53 +3,6 @@ document.querySelector('#menu').onclick = () => {
     navbarButton.classList.toggle('active');
 };
 
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const skateLink = document.getElementById('skateLink');
-    const skateDropdown = document.getElementById('skateDropdown');
-
-    const clothingLink = document.getElementById('clothingLink');
-    const clothingDropdown = document.getElementById('clothingDropdown');
-
-    const accessoriesLink = document.getElementById('accessoriesLink');
-    const accessoriesDropdown = document.getElementById('accessoriesDropdown');
-
-
-    function toggleDropdown(dropdown) {
-        dropdown.classList.toggle('show');
-    }
-
-    skateLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        toggleDropdown(skateDropdown);
-        clothingDropdown.classList.remove('show');
-        accessoriesDropdown.classList.remove('show');
-    });
-
-    clothingLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        toggleDropdown(clothingDropdown);
-        skateDropdown.classList.remove('show');
-        accessoriesDropdown.classList.remove('show');
-    });
-
-    accessoriesLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        toggleDropdown(accessoriesDropdown);
-        skateDropdown.classList.remove('show'); 
-        clothingDropdown.classList.remove('show');
-    });
-
-    window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
-            skateDropdown.classList.remove('show');
-            clothingDropdown.classList.remove('show');
-            accessoriesDropdown.classList.remove('show');
-        }
-    };
-});
-
 const searchInput = document.getElementById('searchInput');
 const searchIcon = document.getElementById('searchIcon');
 
@@ -59,10 +12,10 @@ function performSearch() {
     const categoryTitles = document.querySelectorAll('.category-title');
     const visibleProductsCount = {};
 
-    productCards.forEach(function(productCard) {
+    productCards.forEach(function (productCard) {
         const productName = productCard.querySelector('.product-name').textContent.toLowerCase();
         const category = productCard.closest('.product-container').id;
-        
+
         if (productName.includes(searchValue)) {
             productCard.style.display = 'block';
             visibleProductsCount[category] = (visibleProductsCount[category] || 0) + 1;
@@ -71,7 +24,7 @@ function performSearch() {
         }
     });
 
-    categoryTitles.forEach(function(title) {
+    categoryTitles.forEach(function (title) {
         const category = title.nextElementSibling.id;
         if (visibleProductsCount[category]) {
             title.style.display = 'block';
@@ -83,19 +36,19 @@ function performSearch() {
 
 searchIcon.addEventListener('click', performSearch);
 
-searchInput.addEventListener('keyup', function(event) {
+searchInput.addEventListener('keyup', function (event) {
     if (event.key === 'Enter') {
         performSearch();
     }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     feather.replace();
 });
 
 const filtering = document.getElementById('filtering');
 
-filtering.addEventListener('keyup', function(event) {
+filtering.addEventListener('keyup', function (event) {
     if (event.key === 'Enter') {
         filter();
     }
@@ -140,7 +93,7 @@ function filter() {
         }
     });
 
-    categoryTitles.forEach(function(title) {
+    categoryTitles.forEach(function (title) {
         const category = title.nextElementSibling.id;
         if (visibleProductsCount[category]) {
             title.style.display = 'block';
