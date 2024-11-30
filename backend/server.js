@@ -43,6 +43,40 @@ app.post('/signup', async (req, res) => {
   }
 });
 
+// Endpoint untuk Login
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Validasi input
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    // Cari user di database
+    const user = await db.collection('users').findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Cek password
+    if (user.password !== password) {
+      return res.status(401).json({ message: 'Invalid password' });
+    }
+
+    // Kirim respons dengan email dan lastPage
+    res.status(200).json({
+      message: 'Login successful',
+      email: user.email,
+      lastPage: user.lastPage || null,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error', error });
+  }
+});
+
+
 // Endpoint untuk Menyimpan Halaman Terakhir
 app.post('/save-last-page', async (req, res) => {
   const { email, lastPage } = req.body;
