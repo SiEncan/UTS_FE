@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="uskateApp">
 
 <head>
     <meta charset="UTF-8">
@@ -22,13 +22,12 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between mx-5" id="navbarNav">
-                <div class="navbar-button">
+                <div class="navbar-button" ng-controller="NavbarController">
                     <div class="dropdown">
                         <a href="index.html" class="dropbtn">Home</a>
                     </div>
                     <div class="dropdown">
-                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Skate
                         </a>
                         <ul class="dropdown-menu">
@@ -37,8 +36,7 @@
                         </ul>
                     </div>
                     <div class="dropdown">
-                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Clothing
                         </a>
                         <ul class="dropdown-menu">
@@ -48,8 +46,7 @@
                         </ul>
                     </div>
                     <div class="dropdown">
-                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Accessories
                         </a>
                         <ul class="dropdown-menu">
@@ -60,10 +57,43 @@
                     <div class="navbar-extra">
                         <a href="custom.html" id="custom">Custom Your Own Board</a>
                     </div>
+                    <!-- New Add Product Button -->
+                    <div class="navbar-extra" ng-if="isAdmin">
+                        <a style="font-size: 20px; text-align: center;" href="add_product.html" class="btn btn-primary">
+                            <i data-feather="plus" class="icon"></i> Add Product
+                        </a>
+                    </div>
+                    <!-- Icon Cart -->
+                    <div ng-if="isLoggedIn" class="dropdown" ng-controller="CartController">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i data-feather="shopping-cart" class="profile-icon"></i>
+                            <span class="cart-count">{{cartItemCount}}</span>
+                        </a>
+                        <ul class="dropdown-menu cart-dropdown" ng-if="cartItems.length > 0">
+                            <li ng-repeat="item in cartItems">
+                                <a class="dropdown-item" href="#">
+                                    <img ng-src="{{item.productId.image}}" class="cart-item-image">
+                                    <span class="mx-3">{{item.productId.title}}</span>
+                                    <span style="color: brown;">Rp{{item.quantity * item.productId.price | number}}</span>
+                                    <span class="mx-3">{{item.quantity}} Item</span>
+                    
+                                    <!-- Tombol untuk menambah quantity -->
+                                    <button style="color: white;" class="btn btn-sm" ng-click="addToCart(item); $event.stopPropagation()">+</button>
+                                    <!-- Tombol untuk mengurangi quantity -->
+                                    <button style="color: white;" class="btn btn-sm" ng-click="removeFromCart(item); $event.stopPropagation()">-</button>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-center" href="cart.html">Go to Cart</a>
+                            </li>
+                        </ul>
+                        <ul class="dropdown-menu cart-dropdown" ng-if="cartItems.length == 0">
+                            <li style="font-size: 25px; color: white;" class="dropdown-item">Your cart is empty</li>
+                        </ul>
+                    </div> 
                     <!-- Ikon profil -->
                     <div class="dropdown">
-                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="dropbtn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i data-feather="user" class="profile-icon"></i>
                         </a>
                         <ul class="dropdown-menu">
@@ -76,21 +106,18 @@
                             </li>
                             <!-- Jika sudah login -->
                             <li ng-if="isLoggedIn">
-                                <span class="dropdown-item disabled">{{ userProfile.name }}</span>
+                                <a class="dropdown-item disabled">{{ pro.name }}</a>
                             </li>
                             <li ng-if="isLoggedIn">
-                                <a class="dropdown-item" href="edit_profile.html">Edit Profile</a>
+                                <a class="dropdown-item" href="profile.html">Edit Profile</a>
                             </li>
                             <li ng-if="isLoggedIn">
-                                <a class="dropdown-item" href="#" ng-click="logout()">Logout</a>
-                            </li>
-                            <li ng-if="isLoggedIn">
-                                <a class="dropdown-item text-danger" href="#" ng-click="deleteProfile()">Delete
-                                    Profile</a>
+                                <a class="dropdown-item" href="#" ng-click="handleAuth()">Logout</a>
                             </li>
                         </ul>
                     </div>
                 </div>
+                
                 <div class="search-bar-class">
                     <i data-feather="search" id="searchIcon" class="search-icon"></i>
                     <input type="text" id="searchInput" placeholder="Search product" class="search-bar"
@@ -153,194 +180,30 @@
             <button onclick="filter()">Apply</button>
         </div>
 
-        <section class="product-section">
+        <section class="product-section" ng-controller="ProductController">
             <h2 class="category-title">Boards</h2>
             <div class="product-container" id="board">
-                <a href="productview.html" class="products" data-color="orange">
-                    <div class="product-card" id="board1">
-                        <img src="img/skateboard1.png" alt="Skateboard 1">
-                        <p class="product-name">GX1000 Looking Out Deck - 8.75</p>
-                        <p class="product-price">Rp1.190.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="yellow,white,red">
-                    <div class="product-card" id="board2">
-                        <img src="img/skateboard2.png" alt="Skateboard 2">
-                        <p class="product-name">Quasi Erased Deck - 8.125</p>
-                        <p class="product-price">Rp1.590.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="black,white">
-                    <div class="product-card" id="board3">
-                        <img src="img/skateboard3.png" alt="Skateboard 3">
-                        <p class="product-name">Baker Tyson Orange Tree Deck - 8.5</p>
-                        <p class="product-price">Rp2.159.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="yellow,blue">
-                    <div class="product-card" id="board4">
-                        <img src="img/skateboard4.png" alt="Skateboard 1">
-                        <p class="product-name">Heroin Swampy's Wide Boy Deck - 10.75</p>
-                        <p class="product-price">Rp1.190.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="black,red">
-                    <div class="product-card" id="board5">
-                        <img src="img/skateboard5.png" alt="Skateboard 2">
-                        <p class="product-name">Anti-Hero Classic Eagle Deck - 8.5</p>
-                        <p class="product-price">Rp1.590.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="orange,black">
-                    <div class="product-card" id="board6">
-                        <img src="img/skateboard6.png" alt="Skateboard 3">
-                        <p class="product-name">Taylor Artificial Ingredients Deck - 8.5</p>
-                        <p class="product-price">Rp2.159.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="blue,brown">
-                    <div class="product-card" id="board7">
-                        <img src="img/skateboard7.png" alt="Skateboard 1">
-                        <p class="product-name">Anderson Just Caus Deck - 8.38</p>
-                        <p class="product-price">Rp1.190.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="blue">
-                    <div class="product-card" id="board8">
-                        <img src="img/skateboard8.png" alt="Skateboard 2">
-                        <p class="product-name">Sandoval Racecar Deck - 9.02</p>
-                        <p class="product-price">Rp1.590.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="green">
-                    <div class="product-card" id="board9">
-                        <img src="img/skateboard9.png" alt="Skateboard 3">
-                        <p class="product-name">Krooked Gottwig RA Deck - 8.38</p>
-                        <p class="product-price">Rp2.159.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="yellow">
-                    <div class="product-card" id="board10">
-                        <img src="img/skateboard10.png" alt="Skateboard 1">
-                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
-                        <p class="product-price">Rp1.190.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="black,white">
-                    <div class="product-card" id="board11">
-                        <img src="img/skate1.png" alt="Skateboard 2">
-                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
-                        <p class="product-price">Rp1.190.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="green">
-                    <div class="product-card" id="board12">
-                        <img src="img/skate2.png" alt="Skateboard 3">
-                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
-                        <p class="product-price">Rp1.190.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="black,yellow">
-                    <div class="product-card" id="board13">
-                        <img src="img/skate3.png" alt="Skateboard 1">
-                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
-                        <p class="product-price">Rp1.190.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="grey,blue">
-                    <div class="product-card" id="board14">
-                        <img src="img/skate4.png" alt="Skateboard 2">
-                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
-                        <p class="product-price">Rp1.190.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="black,yellow">
-                    <div class="product-card" id="board15">
-                        <img src="img/skate5.png" alt="Skateboard 3">
-                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
-                        <p class="product-price">Rp1.190.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="grey">
-                    <div class="product-card" id="board16">
-                        <img src="img/skate6.png" alt="Skateboard 1">
-                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
-                        <p class="product-price">Rp1.190.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="black,red">
-                    <div class="product-card" id="board17">
-                        <img src="img/skate8.png" alt="Skateboard 2">
-                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
-                        <p class="product-price">Rp1.190.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="grey,blue">
-                    <div class="product-card" id="board18">
-                        <img src="img/skate9.png" alt="Skateboard 3">
-                        <p class="product-name">Gonz Sweatpants Deck - 8.5</p>
-                        <p class="product-price">Rp1.190.000</p>
-                    </div>
-                </a>
+                <div class="products" ng-repeat="product in boards">
+                    <a href="productview.html?id={{product._id}}" class="products classForColor" data-color="{{product.color}}">
+                        <div class="product-card">
+                            <img ng-src="{{product.image}}" alt="{{product.title}}">
+                            <p class="product-name">{{product.title}}</p>
+                            <p class="product-price">Rp{{product.price | number}}</p>
+                        </div>
+                    </a>
+                </div>
             </div>
             <h2 class="category-title">Wheels</h2>
             <div class="product-container" id="wheels">
-                <a href="productview.html" class="products" data-color="blue,gray,black">
-                    <div class="product-card">
-                        <img src="img/wheels1.png" alt="Wheels1">
-                        <p class="product-name">Spitfire Formula Four Conical Full 99</p>
-                        <p class="product-price">Rp662.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="yellow,gray,black">
-                    <div class="product-card">
-                        <img src="img/wheels2.png" alt="Wheels2">
-                        <p class="product-name">Spitfire Formula Four 99a - Assorted Sizes</p>
-                        <p class="product-price">Rp693.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="blue,black,beige">
-                    <div class="product-card">
-                        <img src="img/wheels3.png" alt="Wheels3">
-                        <p class="product-name">Spitfire Formula Four 93 Radial 93a - 56mm</p>
-                        <p class="product-price">Rp693.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="black,orange">
-                    <div class="product-card">
-                        <img src="img/wheels4.png" alt="Wheels4">
-                        <p class="product-name">OJ Elite Nomad Wheels 95a - 53mm</p>
-                        <p class="product-price">Rp616.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="red,white,green">
-                    <div class="product-card">
-                        <img src="img/wheels5.png" alt="Wheels5">
-                        <p class="product-name">OJ Winkowski Tropics Elite Wheels 99a - 53mm</p>
-                        <p class="product-price">Rp616.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="purple">
-                    <div class="product-card">
-                        <img src="img/wheels6.png" alt="Wheels6">
-                        <p class="product-name">OJ Nora Dreams Winko Elite Wheels 101a - 54mm</p>
-                        <p class="product-price">Rp616.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="purple,white,blue">
-                    <div class="product-card">
-                        <img src="img/wheels7.png" alt="Wheels7">
-                        <p class="product-name">Slime Balls OG Slime Wheels White 78a - 60mm</p>
-                        <p class="product-price">Rp662.000</p>
-                    </div>
-                </a>
-                <a href="productview.html" class="products" data-color="beige,blue">
-                    <div class="product-card">
-                        <img src="img/wheels8.png" alt="wheels8">
-                        <p class="product-name">Spitfire Formula Four Grimple Stix Lock In Full 99a - 57mm</p>
-                        <p class="product-price">Rp693.000</p>
-                    </div>
-                </a>
+                <div class="products" ng-repeat="product in wheels">
+                    <a href="productview.html?id={{product._id}}" class="products classForColor" data-color="{{product.color}}">
+                        <div class="product-card">
+                            <img ng-src="{{product.image}}" alt="{{product.title}}">
+                            <p class="product-name">{{product.title}}</p>
+                            <p class="product-price">Rp{{product.price | number}}</p>
+                        </div>
+                    </a>
+                </div>
             </div>
         </section>
     </div>
@@ -349,6 +212,12 @@
         feather.replace();
     </script>
     <script src="style.js"></script>
+    <script src="angular.js"></script>
+    <script src="controllers/NavbarController.js"></script>
+    <script src="services/ProductService.js"></script>
+    <script src="controllers/ProductController.js"></script>
+    <script src="services/CartService.js"></script>
+    <script src="controllers/CartController.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

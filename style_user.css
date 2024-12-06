@@ -98,6 +98,32 @@ body {
   box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
 }
 
+.card {
+  background-color: rgba(255, 255, 255, 0.266);
+  /* Warna putih dengan transparansi 80% */
+  border-radius: 8px;
+  /* Membuat sudut sedikit melengkung */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Memberikan bayangan lembut */
+}
+
+.card-header {
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Warna hitam semi transparan untuk header */
+  color: white;
+  /* Mengubah teks header menjadi putih */
+  text-align: center;
+  border-bottom: none;
+  /* Menghapus border bawah */
+}
+
+.card-body {
+  background-color: rgba(255, 255, 255, 0.8);
+  /* Warna isi form lebih transparan */
+  border-radius: 8px;
+}
+
+
 .custom-btn {
   background-color: rgb(183, 55, 55);
   border: none;

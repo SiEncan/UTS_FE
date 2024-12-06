@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'Urban Jungle';
+    src: url('fonts/UrbanJungle.otf') format('truetype');
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: rgb(186, 186, 186);
+    /* Warna abu-abu terang */
+    color: #2f2f2f;
+    /* Warna teks lebih gelap untuk kontras */
+  }
+  
+  .container {
+    max-width: 800px;
+  }
+  
+  .container h2 {
+    font-family: 'Urban Jungle', sans-serif;
+  }
+  
+  label {
+    font-weight: bold;
+    color: black
+      /* Warna emas */
+  }
+  
+  input,
+  textarea,
+  select {
+    border: 1px solid #555;
+    background-color: #fff;
+    /* Warna putih untuk kontras di background abu-abu */
+  }
+  
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: #d6a85d;
+    box-shadow: 0 0 5px rgba(214, 168, 93, 0.8);
+  }
+  
+  form {
+    background-color: #e0e0e0;
+    /* Warna abu-abu medium untuk form */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  button {
+    background-color: #d6a85d;
+    color: #2f2f2f;
+    font-weight: bold;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #b88649;
+    /* Warna emas lebih gelap */
+  }

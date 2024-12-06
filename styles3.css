@@ -135,7 +135,7 @@ body {
 }
 
 .dropbtn {
-    background-color: #333;
+    background-color: rgb(49, 49, 49);
     color: white;
     padding: 0.5em;
     border: none;
@@ -213,19 +213,22 @@ body {
 .product-title {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    font-family: Arial, sans-serif;
+    font-family: 'Urban Jungle', sans-serif;
     color: #333;
+    font-weight: bold;
 }
 
 .product-price {
     font-size: 1.5rem;
     color: #d9b07f;
     margin-bottom: 1rem;
+    font-weight: bold;
 }
 
 .product-description {
     margin-bottom: 1rem;
     color: #333;
+    font-weight: bold;
 }
 
 .product-features {
@@ -291,6 +294,55 @@ body {
     width: 100%;
     height: auto;
     border-radius: 8px;
+}
+
+.related-item a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.related-item a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.related-item a:focus {
+    outline: none;
+}
+
+.cart-dropdown {
+    right: auto;
+    left: auto;
+    font-family: Arial, sans-serif;
+    /* Mengubah font menjadi Arial */
+    font-size: 8px;
+    /* Mengatur ukuran font lebih kecil */
+}
+
+.cart-dropdown .dropdown-item {
+    font-family: Arial, sans-serif;
+    /* Menetapkan font Arial pada item dropdown */
+    font-size: 8px;
+    /* Ukuran font pada item dropdown */
+}
+
+/* Menyesuaikan ukuran gambar dalam cart */
+.cart-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 20px;
 }
 
 /* Media Queries */

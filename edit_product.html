@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skate Shop</title>
+    <title>Product View</title>
     <link href="https://fonts.cdnfonts.com/css/blowbrush" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="styles2.css">
+    <link rel="stylesheet" href="styles3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 
@@ -127,89 +127,54 @@
         </div>
     </nav>
 
-    <div class="all-conta">
-        <div class="filter-section" id="filtering">
-            <h3>Harga</h3>
-            <input type="text" id="min_price" placeholder="Harga Minimum">
-            <input type="text" id="max_price" placeholder="Harga Maksimum">
-            <h3>Warna</h3>
-            <div class="checkbox-container">
-                <input type="checkbox" id="color-red" value="red">
-                <label for="color-red">Red</label>
+    <section class="product-section" ng-controller="EditProductController">
+        <div class="product-container">
+            <h1>Edit Product</h1>
+            
+            <div class="product-image">
+                <img ng-src="{{productDetail.image}}" alt="{{productDetail.title}}" class="img-fluid">
             </div>
-            <div class="checkbox-container">
-                <input type="checkbox" id="color-yellow" value="yellow">
-                <label for="color-yellow">Yellow</label>
+            
+            <div class="product-info">
+                <form ng-submit="updateProduct(productDetail)">
+                    <div class="form-group">
+                        <label for="product-image">Product image</label>
+                        <input type="text" id="product-image" ng-model="productDetail.image" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-title">Product Title</label>
+                        <input type="text" id="product-title" ng-model="productDetail.title" class="form-control" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-price">Product Price</label>
+                        <input type="number" id="product-price" ng-model="productDetail.price" class="form-control" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-description">Product Description</label>
+                        <textarea id="product-description" ng-model="productDetail.description" class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary my-3">Update Product</button>
+                </form>
+                <button class="btn btn-danger" ng-click="deleteProduct(productDetail._id)" ng-if="isAdmin">
+                    Delete Product
+                </button>  
             </div>
-            <div class="checkbox-container">
-                <input type="checkbox" id="color-black" value="black">
-                <label for="color-black">Black</label>
-            </div>
-            <div class="checkbox-container">
-                <input type="checkbox" id="color-gray" value="gray">
-                <label for="color-gray">Gray</label>
-            </div>
-            <div class="checkbox-container">
-                <input type="checkbox" id="color-beige" value="beige">
-                <label for="color-beige">Beige</label>
-            </div>
-            <div class="checkbox-container">
-                <input type="checkbox" id="color-green" value="green">
-                <label for="color-green">Green</label>
-            </div>
-            <div class="checkbox-container">
-                <input type="checkbox" id="color-brown" value="brown">
-                <label for="color-brown">Brown</label>
-            </div>
-            <div class="checkbox-container">
-                <input type="checkbox" id="color-white" value="white">
-                <label for="color-white">White</label>
-            </div>
-            <div class="checkbox-container">
-                <input type="checkbox" id="color-blue" value="blue">
-                <label for="color-blue">Blue</label>
-            </div>
-            <button onclick="filter()">Apply</button>
         </div>
-
-        <section class="product-section" ng-controller="ProductController">
-            <h2 class="category-title">Headwear</h2>
-            <div class="product-container" id="headwear">
-                <div class="products" ng-repeat="product in headwears">
-                    <a href="productview.html?id={{product._id}}" class="products classForColor" data-color="{{product.color}}">
-                        <div class="product-card">
-                            <img ng-src="{{product.image}}" alt="{{product.title}}">
-                            <p class="product-name">{{product.title}}</p>
-                            <p class="product-price">Rp{{product.price | number}}</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <h2 class="category-title">Socks</h2>
-            <div class="product-container" id="socks">
-                <div class="products" ng-repeat="product in socks">
-                    <a href="productview.html?id={{product._id}}" class="products classForColor" data-color="{{product.color}}">
-                        <div class="product-card">
-                            <img ng-src="{{product.image}}" alt="{{product.title}}">
-                            <p class="product-name">{{product.title}}</p>
-                            <p class="product-price">Rp{{product.price | number}}</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-    </div>
-
+    </section>    
+    
     <script>
         feather.replace();
     </script>
-    <script src="style.js"></script>
     <script src="angular.js"></script>
     <script src="controllers/NavbarController.js"></script>
     <script src="services/ProductService.js"></script>
-    <script src="controllers/ProductController.js"></script>
+    <script src="controllers/EditProductController.js"></script>
     <script src="services/CartService.js"></script>
     <script src="controllers/CartController.js"></script>
+    <script src="style.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
